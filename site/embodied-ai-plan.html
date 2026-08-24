@@ -1,0 +1,486 @@
+<title>具身智能修行路线</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ground:#F1F3F1; --surface:#FAFBFA; --surface-2:#EAEEEB;
+    --ink:#171C1B; --ink-soft:#5A6764; --ink-faint:#8A9793;
+    --rule:#D3D9D6; --rule-strong:#B9C2BE;
+    --accent:#0E6A5A; --accent-soft:#E1EDE8; --accent-ink:#0B4E42;
+    --signal:#A8412A; --signal-soft:#F4E7E2;
+    --serif:"Noto Serif SC",Songti SC,SimSun,Georgia,serif;
+    --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --measure:70ch;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0F1413; --surface:#161C1B; --surface-2:#1D2523;
+      --ink:#E4EAE7; --ink-soft:#9AA8A4; --ink-faint:#75837F;
+      --rule:#28312F; --rule-strong:#3A4542;
+      --accent:#4FB59C; --accent-soft:#16302A; --accent-ink:#7FCBB7;
+      --signal:#E08163; --signal-soft:#2E1E19;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0F1413; --surface:#161C1B; --surface-2:#1D2523;
+    --ink:#E4EAE7; --ink-soft:#9AA8A4; --ink-faint:#75837F;
+    --rule:#28312F; --rule-strong:#3A4542;
+    --accent:#4FB59C; --accent-soft:#16302A; --accent-ink:#7FCBB7;
+    --signal:#E08163; --signal-soft:#2E1E19;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-weight:300; font-size:16.5px; line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:clamp(28px,5vw,72px) clamp(18px,5vw,56px) 96px}
+  p,li{max-width:var(--measure)}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--rule-strong)}
+  a:hover{border-bottom-color:var(--accent)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+  strong{font-weight:500; color:var(--ink)}
+  code{font-family:var(--mono); font-size:.85em; background:var(--surface-2); padding:.1em .35em; border-radius:3px}
+
+  /* ---------- masthead ---------- */
+  header.mast{border-top:2px solid var(--ink); padding-top:18px; margin-bottom:56px}
+  .kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:8px 22px}
+  h1{
+    font-family:var(--serif); font-weight:700; letter-spacing:.02em;
+    font-size:clamp(38px,6.4vw,62px); line-height:1.12; margin:20px 0 0; text-wrap:balance;
+  }
+  .dek{font-size:clamp(16px,2vw,18.5px); color:var(--ink-soft); margin:18px 0 0; max-width:62ch; line-height:1.8}
+  .mast-meta{margin-top:26px; padding-top:14px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:10px 28px; font-family:var(--mono); font-size:12px; color:var(--ink-faint)}
+  .mast-meta b{color:var(--ink-soft); font-weight:500}
+
+  /* ---------- sections ---------- */
+  section{margin-top:64px; scroll-margin-top:24px}
+  .sec-head{display:flex; align-items:baseline; gap:16px; border-bottom:1px solid var(--rule-strong); padding-bottom:10px; margin-bottom:26px}
+  .sec-num{font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:.1em; padding-top:6px; flex:none}
+  h2{font-family:var(--serif); font-weight:700; font-size:clamp(23px,3.1vw,30px); line-height:1.3; margin:0; text-wrap:balance}
+  h3{font-family:var(--serif); font-weight:500; font-size:19px; margin:34px 0 10px; letter-spacing:.01em}
+  h4{font-family:var(--mono); font-weight:500; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:26px 0 8px}
+
+  ul,ol{padding-left:1.25em; margin:14px 0}
+  li{margin:7px 0}
+  li::marker{color:var(--ink-faint)}
+
+  /* ---------- callouts ---------- */
+  .note{background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:18px 22px; margin:24px 0; border-radius:2px}
+  .note p{margin:0}
+  .note p + p{margin-top:10px}
+  .note.warn{border-left-color:var(--signal)}
+  .note-label{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:8px}
+  .note.warn .note-label{color:var(--signal)}
+
+  .profile{display:grid; gap:0; border:1px solid var(--rule); border-radius:2px; overflow:hidden; background:var(--surface); margin:22px 0}
+  .profile div{display:grid; grid-template-columns:120px 1fr; gap:18px; padding:14px 20px; border-bottom:1px solid var(--rule)}
+  .profile div:last-child{border-bottom:0}
+  .profile dt, .profile .k{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); padding-top:5px}
+  .profile .v{margin:0; max-width:none}
+  @media(max-width:620px){ .profile div{grid-template-columns:1fr; gap:4px} .profile dt,.profile .k{padding-top:0} }
+
+  /* ---------- the calibration scale (12-month timeline) ---------- */
+  .scale{margin:30px 0 8px}
+  .scale-rule{display:flex; height:34px; align-items:flex-end; border-bottom:1px solid var(--rule-strong); position:relative}
+  .tick{flex:1; border-left:1px solid var(--rule); height:9px}
+  .tick.major{height:18px; border-left:1px solid var(--rule-strong)}
+  .scale-months{display:flex; font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); margin-top:6px}
+  .scale-months span{flex:1; text-align:left; padding-left:2px}
+  .phases{display:flex; gap:6px; margin-top:14px; align-items:stretch}
+  .phase{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); padding:14px 16px; border-radius:2px; display:flex; flex-direction:column; gap:6px}
+  .phase:nth-child(1){flex:6}  .phase:nth-child(2){flex:12}
+  .phase:nth-child(3){flex:16} .phase:nth-child(4){flex:18}
+  .phase .pn{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--accent); text-transform:uppercase}
+  .phase .pt{font-family:var(--serif); font-weight:700; font-size:19px; line-height:1.25}
+  .phase .pw{font-family:var(--mono); font-size:11px; color:var(--ink-faint); font-variant-numeric:tabular-nums}
+  .phase .pd{font-size:14px; color:var(--ink-soft); line-height:1.7; max-width:none; margin:0}
+  @media(max-width:760px){ .phases{flex-direction:column} .phase{flex:none !important} .scale{display:none} }
+
+  .phase-detail{border:1px solid var(--rule); border-radius:2px; margin:18px 0; background:var(--surface)}
+  .phase-detail > div{padding:16px 20px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:74px 1fr; gap:16px}
+  .phase-detail > div:last-child{border-bottom:0}
+  .phase-detail .lbl{font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); padding-top:5px}
+  .phase-detail .val{margin:0; max-width:none}
+  .phase-detail .pass{color:var(--ink)}
+  .phase-detail .pass .lbl{color:var(--signal)}
+  @media(max-width:620px){ .phase-detail > div{grid-template-columns:1fr; gap:4px} .phase-detail .lbl{padding-top:0} }
+
+  /* ---------- tables ---------- */
+  .tw{overflow-x:auto; margin:24px 0; border:1px solid var(--rule); border-radius:2px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; min-width:600px; font-size:14.5px}
+  th,td{text-align:left; padding:13px 18px; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.65}
+  th{font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; background:var(--surface-2); white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  td:first-child{font-weight:500; color:var(--ink)}
+  td.num{font-family:var(--mono); font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink-soft)}
+  .lv{font-family:var(--mono); font-size:12px; color:var(--accent); white-space:nowrap}
+
+  /* ---------- week rhythm ---------- */
+  .week{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin:24px 0}
+  .day{border:1px solid var(--rule); background:var(--surface); border-radius:2px; padding:12px 10px; min-height:118px}
+  .day .d{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--ink-faint); text-transform:uppercase}
+  .day .t{font-family:var(--serif); font-weight:500; font-size:15px; margin-top:8px; line-height:1.35}
+  .day .n{font-size:12.5px; color:var(--ink-soft); margin-top:6px; line-height:1.6; max-width:none}
+  .day.hi{background:var(--accent-soft); border-color:var(--accent)}
+  .day.hi .d{color:var(--accent-ink)}
+  .day.rest{background:transparent; border-style:dashed}
+  @media(max-width:820px){ .week{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:460px){ .week{grid-template-columns:1fr} .day{min-height:0} }
+
+  .box{display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--rule)}
+  .box:last-of-type{border-bottom:0}
+  .box .bn{font-family:var(--mono); font-size:12px; color:var(--accent); flex:none; width:26px; padding-top:4px; font-variant-numeric:tabular-nums}
+  .box .bb{margin:0; max-width:none}
+  .box .bb b{font-weight:500}
+
+  .anti li{margin:11px 0}
+  .anti li b{color:var(--signal); font-weight:500}
+
+  .three{counter-reset:t; margin:26px 0 0; padding:0; list-style:none}
+  .three li{counter-increment:t; display:flex; gap:16px; padding:18px 0; border-top:1px solid var(--rule); max-width:none}
+  .three li::before{content:counter(t); font-family:var(--serif); font-weight:700; font-size:26px; color:var(--accent); line-height:1; flex:none; width:28px}
+  .three li p{margin:0}
+
+  footer{margin-top:72px; padding-top:18px; border-top:2px solid var(--ink); font-family:var(--mono); font-size:11.5px; color:var(--ink-faint); display:flex; flex-wrap:wrap; gap:8px 26px}
+  .src{margin-top:14px; font-size:12.5px; color:var(--ink-soft); font-family:var(--sans); max-width:none; line-height:1.9}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="kicker"><span>个人能力路线</span><span>具身智能 · 数据与评测</span><span>2026-08</span></div>
+  <h1>具身智能修行路线</h1>
+  <p class="dek">用每天 1–2 小时，练出「研究院级技术判断力」＋「一线市场敏锐度」的双能力。不是课程表，是一份可修订的作战计划：先校准目标，再选战场，最后用每月一件可被外部检验的作品当证据链。</p>
+  <div class="mast-meta">
+    <span><b>预算</b> 90 min/天 · 6 天/周 · 周末一个长块</span>
+    <span><b>周期</b> 12 个月，四阶段</span>
+    <span><b>北极星</b> 每月 1 件可被外部检验的作品</span>
+  </div>
+</header>
+
+<section id="s0">
+  <div class="sec-head"><span class="sec-num">00</span><h2>我读到的你</h2></div>
+  <p>这份计划的所有取舍都建立在下面这几条推断上。如果其中任何一条错了，告诉我，路线会跟着改（尤其是：你若已有控制/ML 训练底子，Phase 0 可以砍掉一半）。</p>
+  <div class="profile">
+    <div><span class="k">公司位置</span><p class="v">WorldEngine AI（深圳，2023 成立，Physical AGI 数据平台：大规模机器人部署、数据采集与管理；团队来自自动驾驶 / 云 AI / 机器人）。你在产业链上的位置是 <strong>数据层</strong>，不是模型层。</p></div>
+    <div><span class="k">日常职责</span><p class="v">面试运营/BD 候选人（北美渠道、丰疆智能北美、Purdue Robot Lab 这类背景），并把「机器人行业认知」当成独立评分维度；自己关心获客、渠道、谈判、单位经济。</p></div>
+    <div><span class="k">技术姿态</span><p class="v">能亲手把一个 Next.js + Capacitor + IndexedDB 产品从 0 推到有护城河论述，会写 North Star metric、状态机、反模式清单。→ <strong>产品与商业直觉是已有资产，工程读写在线，ML/机器人学的形式化训练是缺口。</strong></p></div>
+    <div><span class="k">语境</span><p class="v">中文母语，跨境（中国 ↔ 北美）业务；已习惯用 AI 做重活。</p></div>
+  </div>
+</section>
+
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2>先把目标校准</h2></div>
+  <p>先做一次残酷的算术：每天 1.5h × 每周 6 天 ≈ 9h/周 ≈ <strong>400h/年</strong>。一个博士生四年全职约 8000h，还外加实验室 GPU、导师和同行压力。</p>
+  <div class="note warn">
+    <span class="note-label">做不到</span>
+    <p>一年内成为能在 CoRL 主赛道上和 Physical Intelligence / GR00T 团队拼架构的研究员。任何承诺这个的计划都在骗你。</p>
+  </div>
+  <div class="note">
+    <span class="note-label">能做到，而且更稀缺</span>
+    <p>具身智能领域的 <strong>research-literate operator</strong>：任何一篇 VLA / 世界模型论文你能端到端读懂并判断真伪；能亲手复现、微调、部署一个策略；能写出研究团队愿意直接采用的数据采集与评测规范；在资本的房间和技术的房间里，你都是唯一听得懂另一边的人。</p>
+    <p><strong>一句话目标身份：在「具身数据与评测」这个细分方向上，成为国内最能把事情讲清楚、且背后有真实数据支撑的少数人之一。</strong></p>
+  </div>
+  <p>这个定义决定了两件事：哪些东西你可以理直气壮地不学，以及 12 个月后你拿什么证据证明自己。</p>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2>战略：别比 GPU，去占「数据与评测」的空位</h2></div>
+  <p>三条判断，构成整份计划的地基：</p>
+  <div class="box"><span class="bn">01</span><p class="bb"><b>模型架构层已是资本密集竞赛。</b>π0 / π0.5、NVIDIA GR00T N1.x、Gemini Robotics 1.5、小米 Robotics-0（2026-02 全栈开源，MoE 把「大脑」视觉语言理解与「小脑」动作执行分开）—— 这一层的准入门槛是千卡集群加全职团队。业余时间追不上，追上了也没有你的位置。</p></div>
+  <div class="box"><span class="bn">02</span><p class="bb"><b>数据与评测层至今没有标准。</b>遥操作数据集没有公认基准；真机评测普遍不可复现 —— VLA 一出分布就掉点，同一环境加扰动也掉点，但<strong>模型之间的排序是稳定的</strong>。这说明数据与评测的设计本身就是可研究的变量。这是一个学术界公认重要、却没人占住的空位。</p></div>
+  <div class="box"><span class="bn">03</span><p class="bb"><b>你恰好坐在数据资产上。</b>学术界缺数据、缺真机、缺规模化采集经验；你缺形式化训练和研究话语权。这两者是可交换的。</p></div>
+  <p>所以路线<strong>不是</strong>「先学完机器人学，再学 ML，再想应用」，而是沿着 <strong>数据 → 策略 → 评测</strong> 这条链，把自己训练到能写出研究者认可的东西 —— 用公司的数据当<strong>研究护照</strong>。</p>
+  <div class="note">
+    <span class="note-label">为什么这条路在 1–2h/天的预算下可行</span>
+    <p>它吃的是判断力 ＋ 数据访问权 ＋ 工程严谨性，而不是 10k GPU。这是唯一一条业余时间能通到研究院水准的通道。终局交付物：一份被外部团队采用或引用的数据/评测规范（或开源基准），加一次 workshop 论文或严肃技术报告。</p>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2>能力树：六层，每层只要「够用的深度」</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>层</th><th>内容</th><th>够用的标准（可自测）</th><th>投入</th></tr></thead>
+    <tbody>
+      <tr><td>L1 数学地板</td><td>线代、概率、优化基础、刚体变换与李群 SE(3)</td><td>能手推 SE(3) 变换与雅可比；看论文 loss 时每一项都知道在干什么</td><td class="num">4–6 周</td></tr>
+      <tr><td>L2 经典机器人学</td><td>运动学、动力学、规划、控制、状态估计</td><td>看到一次抓取失败，能判断是标定、规划还是控制问题</td><td class="num">8 周</td></tr>
+      <tr><td>L3 学习型控制</td><td>模仿学习、RL、offline RL、diffusion / flow matching</td><td>能说清 ACT、Diffusion Policy、π0 三者动作表征的差异与各自失效模式</td><td class="num">8 周</td></tr>
+      <tr><td>L4 VLA 与世界模型</td><td>架构谱系、action tokenization、快慢双系统、世界模型</td><td>拿到一篇新 VLA 论文，20 分钟说出它真实的增量和被藏起来的代价</td><td class="num">持续</td></tr>
+      <tr><td>L5 数据与评测<br><span class="lv">主战场</span></td><td>采集协议、数据质量、scaling law、真机评测、real2sim 基准</td><td>能写出一份研究团队可以直接拿去用的采集 spec ＋ 评测协议</td><td class="num">12 周 ＋ 持续</td></tr>
+      <tr><td>L6 部署经济学<br><span class="lv">主战场</span></td><td>BOM、减速器/丝杠/无框电机成本曲线、人天成本、客户 ROI、量产良率</td><td>能给任意一家具身公司算出单台交付毛利与规模化断点</td><td class="num">与 L5 并行</td></tr>
+    </tbody>
+  </table></div>
+  <p>L1–L4 是<strong>入场券</strong>（读懂别人），L5–L6 是<strong>你的护城河</strong>（别人读你）。不要在 L1–L4 上追求完美 —— 那是最常见的时间黑洞。</p>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2>12 个月路线图</h2></div>
+  <div class="scale" aria-hidden="true">
+    <div class="scale-rule">
+      <span class="tick major"></span><span class="tick"></span><span class="tick"></span>
+      <span class="tick major"></span><span class="tick"></span><span class="tick"></span>
+      <span class="tick major"></span><span class="tick"></span><span class="tick"></span>
+      <span class="tick major"></span><span class="tick"></span><span class="tick"></span>
+    </div>
+    <div class="scale-months">
+      <span>M1</span><span></span><span></span><span>M4</span><span></span><span></span><span>M7</span><span></span><span></span><span>M10</span><span></span><span></span>
+    </div>
+  </div>
+  <div class="phases">
+    <div class="phase"><span class="pn">Phase 0</span><span class="pt">能读</span><span class="pw">第 1–6 周</span><p class="pd">数学地板 ＋ 刚体运动 ＋ transformer 手写</p></div>
+    <div class="phase"><span class="pn">Phase 1</span><span class="pt">能跑</span><span class="pw">第 7–18 周</span><p class="pd">复现策略、上真机、拿到第一条成功率曲线</p></div>
+    <div class="phase"><span class="pn">Phase 2</span><span class="pt">能测</span><span class="pw">第 19–34 周</span><p class="pd">自采数据、做消融、写评测 harness</p></div>
+    <div class="phase"><span class="pn">Phase 3</span><span class="pt">能定标准</span><span class="pw">第 35–52 周</span><p class="pd">升级为规范/基准，共同署名，公开演讲</p></div>
+  </div>
+
+  <h3>Phase 0 · 第 1–6 周 —— 能读</h3>
+  <div class="phase-detail">
+    <div><span class="lbl">学</span><p class="val">3Blue1Brown 线代 → Modern Robotics Ch 2–3（刚体运动/螺旋理论，这是命门）→ Karpathy Zero-to-Hero（必须敲键盘）。</p></div>
+    <div><span class="lbl">做</span><p class="val">MuJoCo 跑通机械臂 IK ＋ 轨迹；建 <code>learning-log</code> repo。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">不看资料，10 分钟白板讲清 SE(3)、正/逆运动学、以及「VLA 为什么要做 action chunking」；录成中文视频发给一位真研究员挨批，被问倒不超过 3 个点。</p></div>
+  </div>
+
+  <h3>Phase 1 · 第 7–18 周 —— 能跑</h3>
+  <div class="phase-detail">
+    <div><span class="lbl">学</span><p class="val">MIT 6.421 Robotic Manipulation（Tedrake）主线 ＋ CS285 精选 8–10 讲 ＋ Modern Robotics Ch 4–6。</p></div>
+    <div><span class="lbl">做</span><p class="val">LeRobot 上训 ACT 与 Diffusion Policy；下单 SO-101（一对约 $150–500）装配；真机 pick-and-place。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">公开数据集复现指标落在原文 ±10% 内；真机 20 次试验成功率 &gt;80%；每次失败都能归因（标定 / 数据 / 策略 / 硬件）。产出一篇公开复现笔记。</p></div>
+  </div>
+
+  <h3>Phase 2 · 第 19–34 周 —— 能测</h3>
+  <div class="phase-detail">
+    <div><span class="lbl">学</span><p class="val">动作表征与 VLA 论文骨架（C/E 组）＋ diffusion / flow matching ＋ Isaac Lab sim2real。</p></div>
+    <div><span class="lbl">做</span><p class="val">按文档化协议自采 500 episodes；做 4 组消融（episode 数量 / 相机视角数 / 演示者熟练度 / 是否加入纠错-恢复数据）；微调一个开源 VLA；写评测 harness（扰动集、trial 数、置信区间、成功率之外的指标）。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">开源 eval 工具 ＋ 中文技术报告；至少一个<strong>违反直觉、且别人能复现</strong>的结论。</p></div>
+  </div>
+
+  <h3>Phase 3 · 第 35–52 周 —— 能定标准</h3>
+  <div class="phase-detail">
+    <div><span class="lbl">学</span><p class="val">世界模型与 real2sim 基准（D 组）＋ 相关工作的评测方法论。</p></div>
+    <div><span class="lbl">做</span><p class="val">把 Phase 2 的发现升级成规范/基准；找一个真实验室共同署名；投一个 workshop（CoRL / RSS / CVPR Embodied AI）。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">论文或基准被外部使用/引用；一次公开演讲（智源大会、WRC、或公司对外分享）扛住研究员追问。</p></div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2>教材与公开课：给用法，不只给名字</h2></div>
+  <h4>必修 · 按顺序，别乱序</h4>
+  <div class="tw"><table>
+    <thead><tr><th>资源</th><th>怎么用</th><th>时长</th><th>跳过什么</th></tr></thead>
+    <tbody>
+      <tr><td>3Blue1Brown《线性代数的本质》</td><td>只看不做题，建几何直觉</td><td class="num">2 周 × 20min</td><td>不必配 Strang 全套</td></tr>
+      <tr><td>Modern Robotics<br><span class="lv">Lynch &amp; Park · 免费</span></td><td><strong>Ch 2,3,4,5,6 逐字读 ＋ 做编程作业</strong>。Ch 3（刚体运动/螺旋理论）是整个领域的通用语。免费 PDF 在 <code>hades.mech.northwestern.edu</code>，配 Northwestern 的 Coursera 与 YouTube 讲座</td><td class="num">8–10 周</td><td>Ch 7、9、10 先跳</td></tr>
+      <tr><td>Karpathy: Zero to Hero ＋ nanoGPT</td><td>全程敲键盘。VLA 的底座是 LLM，不懂 transformer 就只能背名词</td><td class="num">10–15h</td><td>无</td></tr>
+      <tr><td>MIT 6.421 Robotic Manipulation<br><span class="lv">Tedrake · manipulation.csail.mit.edu</span></td><td><strong>本领域最好的单一资源</strong>：免费讲义 ＋ 视频 ＋ Drake notebooks。按章做 notebook；重点是位姿估计、抓取、运动规划、diffusion policy 章节</td><td class="num">12 周</td><td>高级规划的证明部分</td></tr>
+      <tr><td>Berkeley CS285 Deep RL<br><span class="lv">Levine · rail.eecs.berkeley.edu/deeprlcourse</span></td><td><strong>只挑 8–10 讲</strong>：模仿学习、策略梯度、actor-critic、model-based、offline RL、RL+robotics</td><td class="num">6 周</td><td>别从头看到尾，别做全部作业</td></tr>
+      <tr><td>Sutton &amp; Barto《RL》2nd<br><span class="lv">免费</span></td><td>当词典查：Ch 1–6、13</td><td class="num">按需</td><td>后半理论章节</td></tr>
+      <tr><td>Probabilistic Robotics<br><span class="lv">Thrun 等</span></td><td>Ch 1–4、7–8 略读。你们团队来自自动驾驶，这是和他们的共同语言</td><td class="num">2 周</td><td>其余当参考</td></tr>
+      <tr><td>深蓝学院「具身智能」方向<br><span class="lv">中文 · 工程向 · 付费</span></td><td>补国内工程实践口径与术语，<strong>不是主线</strong></td><td class="num">按需</td><td>别用它替代英文原始材料</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>选修 / 工具书</h4>
+  <ul>
+    <li>Boyd <strong>EE364A 凸优化</strong> 前 5 讲，够用了。</li>
+    <li>LaValle <strong>Planning Algorithms</strong>（免费）Ch 5 采样规划（RRT/PRM），当参考查。</li>
+    <li>Stanford <strong>CS231A 几何视觉</strong> —— 只在你要碰标定/位姿估计时读。</li>
+    <li><strong>Lilian Weng 的 diffusion 博客</strong> ＋ <strong>flow matching 入门</strong> —— π0 的动作头是 flow matching，不懂就读不懂 π 系列。</li>
+    <li>Tedrake <strong>Underactuated Robotics</strong> —— 只在要碰足式/全身动力学时看 LQR 与轨迹优化两章。</li>
+  </ul>
+
+  <div class="note warn">
+    <span class="note-label">明确「现在不学」</span>
+    <p>从零手写 SLAM、完整控制理论、CUDA/推理优化、机械结构设计、ROS 全栈。这些都是真本事，但对你的目标身份是负收益。需要时再回来。</p>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2>论文骨架 30 篇 ＋ 读法</h2></div>
+  <p>每周一篇，按组顺序。综述只用来画地图，<strong>不要用来代替读原文</strong>。</p>
+  <div class="tw"><table>
+    <thead><tr><th>组</th><th>主题</th><th>论文</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>地基：模仿学习与动作表征</td><td>ACT / ALOHA · Diffusion Policy · RT-1 · Octo · OpenVLA</td></tr>
+      <tr><td>B</td><td>规模化与数据</td><td>Open X-Embodiment (RT-X) · RT-2 · DROID · BridgeData V2 · <em>Data Scaling Laws in Imitation Learning</em> · AgiBot World / GO-1 · RoboMIND</td></tr>
+      <tr><td>C</td><td>当代前沿</td><td>π0 · π0.5 · GR00T N1（及 N1.5）· Gemini Robotics 1.0 / 1.5 · RDT-1B · 小米 Robotics-0（2026-02 开源，MoE 大脑-小脑）</td></tr>
+      <tr><td>D</td><td>世界模型</td><td>Dreamer V3 · NVIDIA Cosmos · <em>World Action Models</em>（arXiv 2605.12090）· real-to-sim 基准（REALM 及 ICLR 2026 相关工作）</td></tr>
+      <tr><td>E</td><td>评测与失效</td><td>LIBERO · VLABench · RaC（scaling recovery &amp; correction）· embodiment scaling laws · VLA 鲁棒性/对抗工作</td></tr>
+      <tr><td>地图</td><td>四篇综述</td><td>arXiv 2405.14093 · 2505.04769 · 2507.01925（action tokenization 视角）· 2605.12090</td></tr>
+    </tbody>
+  </table></div>
+  <h4>读论文的 5 问模板 · 每篇都填进 notes/</h4>
+  <div class="box"><span class="bn">01</span><p class="bb">它假设了什么数据？多少 episode、谁采的、什么机器人、场景多样性如何？</p></div>
+  <div class="box"><span class="bn">02</span><p class="bb">动作怎么表示、控制频率多少？离散 token / 连续回归 / diffusion / flow？chunk 多长？</p></div>
+  <div class="box"><span class="bn">03</span><p class="bb">评测在哪跑、多少 trial、有没有置信区间？换个房间还成立吗？</p></div>
+  <div class="box"><span class="bn">04</span><p class="bb">换到我的机器人上，第一个会坏的地方是什么？</p></div>
+  <div class="box"><span class="bn">05</span><p class="bb"><b>如果这个结论是真的，谁的生意会变？</b>这一问是市场敏锐度的日常训练，不许跳过。</p></div>
+</section>
+
+<section id="s7">
+  <div class="sec-head"><span class="sec-num">07</span><h2>每天 90 分钟怎么花</h2></div>
+  <p>这一节是效果差异的真正来源 —— 同样 400 小时，节奏设计的差别可以是十倍。</p>
+  <h4>单次会话时间盒</h4>
+  <div class="tw"><table>
+    <thead><tr><th>时段</th><th>做什么</th><th>为什么</th></tr></thead>
+    <tbody>
+      <tr><td class="num">0–10 min</td><td>回忆：不看资料写下上次学到的三点，或过 20 张 Anki 卡</td><td>主动回忆的留存率是重读的数倍</td></tr>
+      <tr><td class="num">10–70 min</td><td>单线深工作：一节课 / 一篇论文 / 一段代码，<strong>不切换主题</strong></td><td>切换成本会吃掉一半时间</td></tr>
+      <tr><td class="num">70–90 min</td><td>输出：在 repo 写 150–300 字「我原以为…… 现在知道…… 还不懂……」</td><td>不写，前 60 分钟会在两周内蒸发</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>每周节奏 · 6 天 ＋ 1 天休</h4>
+  <div class="week">
+    <div class="day"><span class="d">Mon</span><div class="t">课程主线</div><p class="n">最费脑的时段留给纵向深度</p></div>
+    <div class="day"><span class="d">Tue</span><div class="t">课程主线</div><p class="n">接着上一天，不换轨</p></div>
+    <div class="day hi"><span class="d">Wed</span><div class="t">论文日</div><p class="n">一篇读透，填满 5 问模板</p></div>
+    <div class="day"><span class="d">Thu</span><div class="t">课程主线</div><p class="n">本周课程收口 ＋ 做练习</p></div>
+    <div class="day hi"><span class="d">Fri</span><div class="t">市场日</div><p class="n">一份公司拆解 / 更新预测日志 / 一次外部对话</p></div>
+    <div class="day hi"><span class="d">Sat</span><div class="t">动手日</div><p class="n">长块 2–4h，唯一碰 GPU 与真机的时段</p></div>
+    <div class="day rest"><span class="d">Sun</span><div class="t">复盘 ＋ 休息</div><p class="n">30 min 复盘与下周计划，其余真的休息</p></div>
+  </div>
+
+  <h4>五条硬规则</h4>
+  <div class="box"><span class="bn">01</span><p class="bb"><b>不敲键盘的学习不算学习。</b>看讲座必须配练习，看论文必须配笔记。</p></div>
+  <div class="box"><span class="bn">02</span><p class="bb"><b>一次会话一个产出</b>：一条笔记、一个 commit、或一张卡片。</p></div>
+  <div class="box"><span class="bn">03</span><p class="bb"><b>债务规则</b>：断 3 天以上不许补课 —— 直接缩小范围继续。「先把落下的补回来」是弃坑的头号原因。</p></div>
+  <div class="box"><span class="bn">04</span><p class="bb"><b>Claude 当苏格拉底和对手，不当替读者。</b>前 6 个月禁止让它替你读论文；可以让它出题、挑你笔记的错、扮演审稿人反驳你的结论。</p></div>
+  <div class="box"><span class="bn">05</span><p class="bb"><b>公开学习</b>：每月一篇中文长文。教学是最强的压力测试，顺带积累行业影响力与 inbound。</p></div>
+  <div class="note">
+    <span class="note-label">低能量日的 20 分钟版本</span>
+    <p>Anki ＋ 扫一遍当日 arXiv <code>cs.RO</code> 标题 ＋ 读一篇摘要。目的只有一个：<strong>链条不断</strong>。</p>
+  </div>
+</section>
+
+<section id="s8">
+  <div class="sec-head"><span class="sec-num">08</span><h2>动手项目阶梯</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>项目</th><th>周期</th><th>成本</th><th>交付物</th></tr></thead>
+    <tbody>
+      <tr><td>P1</td><td>MuJoCo ＋ mujoco_menagerie：机械臂 IK ＋ 轨迹跑通，搞懂 timestep / 接触 / 求解器</td><td class="num">2 周</td><td class="num">¥0</td><td>能跑的 notebook ＋「仿真到底在算什么」笔记</td></tr>
+      <tr><td>P2</td><td>LeRobot 上复现 ACT 与 Diffusion Policy（公开数据集），对齐论文指标</td><td class="num">3 周</td><td class="num">GPU 按小时租</td><td>复现报告 ＋ 两种方法失效模式对照表</td></tr>
+      <tr><td>P3</td><td>真机：SO-101 一对（3–4h 装配）自采数据 → 训练 → 20 trial 真机评测</td><td class="num">4 周</td><td class="num">$150–500</td><td>视频 ＋ 失败归因表（标定/数据/策略/硬件）</td></tr>
+      <tr><td>P4</td><td>数据科学实验：自采 500 episodes，4 组消融（数量 / 视角 / 演示者熟练度 / 纠错-恢复数据）</td><td class="num">6–8 周</td><td class="num">GPU</td><td>scaling 曲线 ＋ 至少一个反直觉结论</td></tr>
+      <tr><td>P5</td><td>评测基准：把 P4 协议做成开源 harness（扰动集、报告格式、置信区间），横评 3 个开源 VLA</td><td class="num">8–12 周</td><td class="num">GPU</td><td>开源工具 ＋ 技术报告 → 投 workshop</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>加分项</strong>：NVIDIA 有官方教程「Train an SO-101 Robot From Sim-to-Real With Isaac」，正好把 Isaac Lab 接进 P3/P4，也顺便建立你和产业主流工具链的对话能力。</p>
+  <div class="note warn">
+    <span class="note-label">硬件纪律</span>
+    <p>先把机械臂玩到底，再碰人形。一对 SO-101 能覆盖 P3–P5 的全部学习价值；人形机器人在这个阶段只会消耗你的时间和钱。</p>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="sec-head"><span class="sec-num">09</span><h2>市场敏锐度：当成一门独立学科来练</h2></div>
+  <p>技术深度靠课程和项目，市场敏锐度靠<strong>结构化的信息摄入 ＋ 可被打分的判断输出</strong>。两者的训练必须分开安排 —— 这就是每周留出「市场日」的原因。</p>
+  <h4>信息源分层 · 附用途与偏差</h4>
+  <div class="tw"><table>
+    <thead><tr><th>频率</th><th>来源</th><th>用途与偏差</th></tr></thead>
+    <tbody>
+      <tr><td>每天 15 min<br><span class="lv">主食</span></td><td>arXiv <code>cs.RO</code> 标题流 · 机器之心 / 量子位 · 具身智能之心 · The Robot Report / IEEE Spectrum Robotics</td><td>只看标题与摘要，练模式识别。中文源速度快但常有公关成分；英文产业源对量产与交付的报道更冷静</td></tr>
+      <tr><td>每周<br><span class="lv">判断力</span></td><td>Import AI（Jack Clark）· Interconnects（Nathan Lambert）· SemiAnalysis · <strong>Rodney Brooks 博客</strong> · 晚点 LatePost 深访 · 张小珺商业访谈录</td><td>Import AI 训练「二阶影响是什么」；Interconnects 训练细节最硬；SemiAnalysis 管住成本结构；Brooks 是<strong>最好的反炒作解毒剂</strong>；一手访谈里，创始人回避了什么比说了什么更有价值</td></tr>
+      <tr><td>每月<br><span class="lv">结构</span></td><td>甲子光年《中国具身智能行业洞察报告》· 机器人大讲堂 × 立德智库产业研究报告 · 前瞻产业研究院全景图谱 · <strong>高工机器人 GGII / MIR 睿工业</strong> · IDC 出货预测</td><td>GGII/MIR 的出货与价格是真实数据，比任何叙事重要。IDC 之类的预测（如 2026 全球人形出货破 5 万台、同比 +178%）要自己校准口径，别照抄</td></tr>
+      <tr><td>每季<br><span class="lv">一手 · 信号最高</span></td><td><strong>目标公司招聘 JD 的变化</strong> · 招投标/政府采购公告 · 上游财报（绿的谐波、双环传动等减速器/丝杠/无框电机的量价与产能利用率）· 海关出口数据 · 公司技术博客与开源 release</td><td>JD 是最诚实的路线图泄露（招灵巧手算法＝下一代方向；招量产工艺＝真要交付了）—— 你是面试官，这项近乎零成本。招投标告诉你谁真的部署了，而不是谁发布会开得好</td></tr>
+      <tr><td>现场<br><span class="lv">每年 2 次</span></td><td>智源大会（6 月，2026 主题为世界模型 × 具身智能）· WAIC（7 月上海）· WRC 世界机器人大会（8 月北京）· CoRL / RSS · CES（1 月）</td><td>规则：每次带 10 场对话 ＋ 1 篇拆解回来，不许只拍照打卡</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>三个训练器</h4>
+  <div class="note">
+    <span class="note-label">① 预测日志 · 市场敏锐度唯一的客观度量</span>
+    <p>每季度写 <strong>10 条可判真假的预测</strong>并标注置信度：出货量、谁融到钱、谁会死、某型号降价幅度、哪个模型会开源、某客户会不会续约。季末逐条打分。</p>
+    <p><strong>目标</strong>：12 个月后，标注 70% 置信度的判断命中率 ≥60%。低于这个数，说明你在听故事，不是在做判断。</p>
+  </div>
+  <div class="note">
+    <span class="note-label">② 拆解模板 · 每周一家公司或产品，固定 8 问</span>
+    <p>谁付钱 → 单位经济（单台毛利/回本周期）→ 数据从哪来 → 技术真增量是什么 → 护城河能否被 12 个月抹平 → 最可能的失效模式 → <strong>3 个外部拿不到的事实</strong> → 如果我是 CEO，下一步做什么。</p>
+  </div>
+  <div class="note">
+    <span class="note-label">③ 人脉配额 · 每月 5 场深度对话</span>
+    <p>1 位研究员 · 1 位硬件/供应链 · 1 位客户或买方 · 1 位投资人 · 1 位同行创业者。每场结束记 <strong>3 条外部拿不到的事实</strong>。</p>
+    <p>你的面试流程本身就是一条高质量情报管道 —— 候选人会把上家的真实进度、交付难点和团队变动带给你。</p>
+  </div>
+</section>
+
+<section id="s10">
+  <div class="sec-head"><span class="sec-num">10</span><h2>能力验证阶梯：怎么证明自己真的到了</h2></div>
+  <p>每一级都是<strong>可被别人判 false 的</strong>测试，不是自我感觉。</p>
+  <div class="tw"><table>
+    <thead><tr><th>级</th><th>时点</th><th>测试</th><th>通过标准</th></tr></thead>
+    <tbody>
+      <tr><td>L0 表达关</td><td class="num">第 6 周</td><td>不看资料 10 分钟白板讲 SE(3)、正/逆运动学、action chunking 的动机 → 录中文视频请一位真研究员挑错</td><td>被问倒 ≤3 个点</td></tr>
+      <tr><td>L1 复现关</td><td class="num">第 18 周</td><td>公开数据集复现 ＋ SO-101 真机 20 trial</td><td>指标 ±10%；成功率 &gt;80%；每次失败能归因</td></tr>
+      <tr><td>L2 实验关</td><td class="num">第 34 周</td><td>自采数据 ＋ 4 组消融 ＋ 技术报告</td><td>产出一个反直觉且可复现的结论；<strong>被一位研究者认真反驳</strong>（被反驳＝进入了对话，比被点赞有价值）</td></tr>
+      <tr><td>L3 研究关</td><td class="num">第 52 周</td><td>workshop 论文 / 开源基准 ＋ 一次公开演讲</td><td>被外部团队使用或引用；问答扛住研究员追问</td></tr>
+      <tr><td>L4 标准关</td><td class="num">第 2 年</td><td>采集/评测规范外溢</td><td>≥2 个外部团队采用；能作为共同作者进入正式论文</td></tr>
+    </tbody>
+  </table></div>
+  <h4>市场侧的三条验收</h4>
+  <ul>
+    <li>预测日志命中率 ≥60%（70% 置信度档）。</li>
+    <li>两份投资/合作备忘录被一位真投资人评为「可用」。</li>
+    <li>面试中能<strong>当场判伪</strong>候选人的技术叙述 —— 记录每季度的命中次数（你已有的现成考场）。</li>
+  </ul>
+  <div class="note">
+    <span class="note-label">最锋利的自查问题</span>
+    <p>「如果一位 PI 现在坐在我对面，我能不能提出一个他答不上来、但值得答的问题？」—— 能，你就到了。</p>
+  </div>
+</section>
+
+<section id="s11">
+  <div class="sec-head"><span class="sec-num">11</span><h2>反模式：每一条都有人死在上面</h2></div>
+  <ul class="anti">
+    <li><b>只看视频不敲键盘</b> —— 第一杀手。看完 CS285 全部讲座却训不出一个策略的人，比你想的多得多。</li>
+    <li><b>论文收藏癖</b> —— Zotero 坟场。宽度优先、深度为零，一年后什么都说不清。</li>
+    <li><b>先买人形再学机械臂</b> —— 贵、慢，学到的反而更少。</li>
+    <li><b>张口融资额和参数量，闭口没有单位经济和失效模式</b> —— 研究员和买方会在 3 分钟内给你降级。</li>
+    <li><b>想用 1h/天变成全职研究员，然后因为「我是冒牌货」而放弃</b> —— 身份按第 01 节的定义来，别拿别人的赛道量自己的进度。</li>
+    <li><b>躲开脏活</b>（标定、时间戳同步、数据管线、评测）—— 这恰好是你公司所在的位置，也是你唯一能建立复利的地方。</li>
+    <li><b>学习不产出</b> —— 没有 repo、没有文章、没有可被检验的东西，12 个月后你无法向任何人证明任何事。</li>
+  </ul>
+</section>
+
+<section id="s12">
+  <div class="sec-head"><span class="sec-num">12</span><h2>这周就做的 7 件事</h2></div>
+  <div class="box"><span class="bn">01</span><p class="bb">建 <code>learning-log</code> repo：<code>notes/ papers/ predictions/ experiments/</code>，<b>今天</b>写第一条笔记。</p></div>
+  <div class="box"><span class="bn">02</span><p class="bb">把每天 90 分钟锁进日历（最好在上班前），并让家人/同事知道这个时段不可约。</p></div>
+  <div class="box"><span class="bn">03</span><p class="bb">下单 SO-101 一对（或先向同事借一条臂），预留一个周末 3–4h 装配。</p></div>
+  <div class="box"><span class="bn">04</span><p class="bb">装环境：MuJoCo ＋ LeRobot quickstart 跑通（一个下午够了）。</p></div>
+  <div class="box"><span class="bn">05</span><p class="bb">开始 3B1B 线代第一集 ＋ Modern Robotics Ch 3 前 10 页。</p></div>
+  <div class="box"><span class="bn">06</span><p class="bb">写下本季度 10 条预测（含置信度），封存到 <code>predictions/2026Q3.md</code>。</p></div>
+  <div class="box"><span class="bn">07</span><p class="bb">约 3 场对话：1 位研究员、1 位供应链、1 位买方。</p></div>
+</section>
+
+<section id="s13">
+  <div class="sec-head"><span class="sec-num">13</span><h2>度量与复盘</h2></div>
+  <div class="tw"><table>
+    <thead><tr><th>周期</th><th>看什么</th></tr></thead>
+    <tbody>
+      <tr><td>每周</td><td>动手小时数（目标 ≥3h/周真正碰键盘或真机）、笔记条数、Anki 完成率</td></tr>
+      <tr><td>每月</td><td>一篇公开长文、一个 demo/commit 里程碑、5 场深度对话</td></tr>
+      <tr><td>每季</td><td>预测日志打分、能力阶梯自评、<strong>路线修订（明确允许砍范围 —— 砍范围不是失败）</strong></td></tr>
+      <tr><td>北极星</td><td><strong>每月产出一个可被外部检验的东西</strong>（复现、实验、报告、工具、演讲）</td></tr>
+    </tbody>
+  </table></div>
+  <p>12 个月 = 12 件作品。这就是「研究院水准」的证据链 —— 它是一串外部可验证的东西，不是一句自我评价。</p>
+
+  <h3>如果只记住三句话</h3>
+  <ol class="three">
+    <li><p><strong>身份是 research-literate operator，不是全职研究员</strong> —— 按这个标准配资源，按这个标准验收。</p></li>
+    <li><p><strong>战场选在「数据与评测」</strong> —— 那里有公认的空白，而你手上有别人拿不到的数据；用它当研究护照。</p></li>
+    <li><p><strong>每月交付一个可被外部检验的东西</strong> —— 判断力不是读出来的，是被别人反驳出来的。</p></li>
+  </ol>
+</section>
+
+<footer>
+  <span>具身智能修行路线 · 2026-08</span>
+  <span>可修订作战计划 · 每季度复盘一次</span>
+</footer>
+<p class="src">主要事实来源：PitchBook / Tracxn（WorldEngine AI 公司画像）· 甲子光年与机器人大讲堂 2026 产业报告 · IDC 2026 出货预测 · arXiv 2405.14093 / 2505.04769 / 2507.01925 / 2605.12090（VLA 与世界模型综述）· manipulation.csail.mit.edu · rail.eecs.berkeley.edu/deeprlcourse · huggingface/lerobot 与 NVIDIA SO-101 sim-to-real 教程 · 深蓝学院与智源社区课程/大会信息。</p>
+
+</div>
