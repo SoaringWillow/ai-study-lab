@@ -92,7 +92,7 @@
   .scale-months span{flex:1; text-align:left; padding-left:2px}
   .phases{display:flex; gap:6px; margin-top:14px; align-items:stretch}
   .phase{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); padding:14px 16px; border-radius:2px; display:flex; flex-direction:column; gap:6px}
-  .phase:nth-child(1){flex:6}  .phase:nth-child(2){flex:12}
+  .phase:nth-child(1){flex:8}  .phase:nth-child(2){flex:12}
   .phase:nth-child(3){flex:16} .phase:nth-child(4){flex:18}
   .phase .pn{font-family:var(--mono); font-size:11px; letter-spacing:.1em; color:var(--accent); text-transform:uppercase}
   .phase .pt{font-family:var(--serif); font-weight:700; font-size:19px; line-height:1.25}
@@ -157,7 +157,7 @@
   <p class="dek">用每天 1–2 小时，练出「研究院级技术判断力」＋「一线市场敏锐度」的双能力。不是课程表，是一份可修订的作战计划：先校准目标，再选战场，最后用每月一件可被外部检验的作品当证据链。</p>
   <div class="mast-meta">
     <span><b>预算</b> 90 min/天 · 6 天/周 · 周末一个长块</span>
-    <span><b>周期</b> 12 个月，四阶段</span>
+    <span><b>周期</b> 12–13 个月，四阶段</span>
     <span><b>北极星</b> 每月 1 件可被外部检验的作品</span>
   </div>
 </header>
@@ -168,7 +168,8 @@
   <div class="profile">
     <div><span class="k">公司位置</span><p class="v">WorldEngine AI（深圳，2023 成立，Physical AGI 数据平台：大规模机器人部署、数据采集与管理；团队来自自动驾驶 / 云 AI / 机器人）。你在产业链上的位置是 <strong>数据层</strong>，不是模型层。</p></div>
     <div><span class="k">日常职责</span><p class="v">面试运营/BD 候选人（北美渠道、丰疆智能北美、Purdue Robot Lab 这类背景），并把「机器人行业认知」当成独立评分维度；自己关心获客、渠道、谈判、单位经济。</p></div>
-    <div><span class="k">技术姿态</span><p class="v">能亲手把一个 Next.js + Capacitor + IndexedDB 产品从 0 推到有护城河论述，会写 North Star metric、状态机、反模式清单。→ <strong>产品与商业直觉是已有资产，工程读写在线，ML/机器人学的形式化训练是缺口。</strong></p></div>
+    <div><span class="k">技术姿态</span><p class="v"><strong>定方向和标准，Claude 落地</strong>；读 diff 和 review，自己基本不写代码。能读懂基础代码，但写和调的能力不强。TravelPanel 那套产物（护城河论述、North Star metric、状态机、反模式清单）是在你设定的标准下由 Claude 产出的 —— 能证明的是「能运维一支 agent 队伍并对产出验收」，不是「逐字写了代码」。→ <strong>产品与商业直觉是已有资产；ML/机器人学的形式化训练是缺口；「读→跑→改」的工程手感是第二个缺口。</strong></p></div>
+    <div><span class="k">校正记录</span><p class="v">2026-08-24 由本人确认：属于「读得懂、写不强」一类。计划据此新增 L0 工程手感层、P0 工具链项目，并把 Phase 0 从 6 周延到 8 周。</p></div>
     <div><span class="k">语境</span><p class="v">中文母语，跨境（中国 ↔ 北美）业务；已习惯用 AI 做重活。</p></div>
   </div>
 </section>
@@ -206,6 +207,7 @@
   <div class="tw"><table>
     <thead><tr><th>层</th><th>内容</th><th>够用的标准（可自测）</th><th>投入</th></tr></thead>
     <tbody>
+      <tr><td>L0 工程手感<br><span class="lv">新增</span></td><td>跑起陌生仓库、读 traceback、张量形状思维、改配置与超参、租 GPU 工作流</td><td>2 小时内独立把一个陌生研究仓库跑到出第一个数字，全程不问 AI</td><td class="num">2 周 ＋ 贯穿</td></tr>
       <tr><td>L1 数学地板</td><td>线代、概率、优化基础、刚体变换与李群 SE(3)</td><td>能手推 SE(3) 变换与雅可比；看论文 loss 时每一项都知道在干什么</td><td class="num">4–6 周</td></tr>
       <tr><td>L2 经典机器人学</td><td>运动学、动力学、规划、控制、状态估计</td><td>看到一次抓取失败，能判断是标定、规划还是控制问题</td><td class="num">8 周</td></tr>
       <tr><td>L3 学习型控制</td><td>模仿学习、RL、offline RL、diffusion / flow matching</td><td>能说清 ACT、Diffusion Policy、π0 三者动作表征的差异与各自失效模式</td><td class="num">8 周</td></tr>
@@ -214,7 +216,8 @@
       <tr><td>L6 部署经济学<br><span class="lv">主战场</span></td><td>BOM、减速器/丝杠/无框电机成本曲线、人天成本、客户 ROI、量产良率</td><td>能给任意一家具身公司算出单台交付毛利与规模化断点</td><td class="num">与 L5 并行</td></tr>
     </tbody>
   </table></div>
-  <p>L1–L4 是<strong>入场券</strong>（读懂别人），L5–L6 是<strong>你的护城河</strong>（别人读你）。不要在 L1–L4 上追求完美 —— 那是最常见的时间黑洞。</p>
+  <p>L0 是<strong>通行条件</strong>（没有它，后面每个项目都会卡在非概念问题上），L1–L4 是<strong>入场券</strong>（读懂别人），L5–L6 是<strong>你的护城河</strong>（别人读你）。不要在 L1–L4 上追求完美 —— 那是最常见的时间黑洞。</p>
+  <div class="note"><span class="note-label">L0 为什么单独立一层</span><p>「读得懂、写不强」的人，后面九成的卡点不是概念，而是环境、路径、张量形状、显存。这一层刻意压到 7 条，只留会真正挡路的东西：跑起陌生仓库的固定套路、读 traceback 的 60 秒规则、形状思维、故意造 bug 练读错误、租 GPU 的三个命令、AI 结对的边界、明确不学清单（OOP／设计模式／测试框架／CUDA 编程）。</p></div>
 </section>
 
 <section id="s4">
@@ -231,34 +234,35 @@
     </div>
   </div>
   <div class="phases">
-    <div class="phase"><span class="pn">Phase 0</span><span class="pt">能读</span><span class="pw">第 1–6 周</span><p class="pd">数学地板 ＋ 刚体运动 ＋ transformer 手写</p></div>
-    <div class="phase"><span class="pn">Phase 1</span><span class="pt">能跑</span><span class="pw">第 7–18 周</span><p class="pd">复现策略、上真机、拿到第一条成功率曲线</p></div>
-    <div class="phase"><span class="pn">Phase 2</span><span class="pt">能测</span><span class="pw">第 19–34 周</span><p class="pd">自采数据、做消融、写评测 harness</p></div>
-    <div class="phase"><span class="pn">Phase 3</span><span class="pt">能定标准</span><span class="pw">第 35–52 周</span><p class="pd">升级为规范/基准，共同署名，公开演讲</p></div>
+    <div class="phase"><span class="pn">Phase 0</span><span class="pt">能读 ＋ 能跑起来</span><span class="pw">第 1–8 周</span><p class="pd">工程手感 ＋ 数学地板 ＋ 刚体运动 ＋ transformer 手写</p></div>
+    <div class="phase"><span class="pn">Phase 1</span><span class="pt">能跑 ＋ 能改</span><span class="pw">第 9–20 周</span><p class="pd">复现策略、读改修三级台阶、上真机</p></div>
+    <div class="phase"><span class="pn">Phase 2</span><span class="pt">能测</span><span class="pw">第 21–36 周</span><p class="pd">自采数据、做消融、写评测 harness</p></div>
+    <div class="phase"><span class="pn">Phase 3</span><span class="pt">能定标准</span><span class="pw">第 37–54 周</span><p class="pd">升级为规范/基准，共同署名，公开演讲</p></div>
   </div>
 
-  <h3>Phase 0 · 第 1–6 周 —— 能读</h3>
+  <h3>Phase 0 · 第 1–8 周 —— 能读 ＋ 能跑起来</h3>
   <div class="phase-detail">
-    <div><span class="lbl">学</span><p class="val">3Blue1Brown 线代 → Modern Robotics Ch 2–3（刚体运动/螺旋理论，这是命门）→ Karpathy Zero-to-Hero（必须敲键盘）。</p></div>
-    <div><span class="lbl">做</span><p class="val">MuJoCo 跑通机械臂 IK ＋ 轨迹；建 <code>learning-log</code> repo。</p></div>
-    <div class="pass"><span class="lbl">验收</span><p class="val">不看资料，10 分钟白板讲清 SE(3)、正/逆运动学、以及「VLA 为什么要做 action chunking」；录成中文视频发给一位真研究员挨批，被问倒不超过 3 个点。</p></div>
+    <div><span class="lbl">学</span><p class="val">工程手感速查（第 1–2 周，与线代并行）→ 3Blue1Brown 线代 → Modern Robotics Ch 2–3（刚体运动/螺旋理论，这是命门）→ Karpathy Zero-to-Hero。<strong>对「写不强」的人 Zero-to-Hero 是双重收益</strong>：既是 transformer，也是最好的 Python ＋ 张量思维训练 —— micrograd 只 100 行，概念密度极高，敲一遍抵三门 Python 课。</p></div>
+    <div><span class="lbl">做</span><p class="val"><strong>P0 工具链</strong>：把 3 个别人的仓库跑起来（LeRobot quickstart / micrograd / 一个 MuJoCo demo），每次踩坑记进踩坑日志 → 然后 MuJoCo 跑通机械臂 IK ＋ 轨迹；建 <code>learning-log</code> repo。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">① 不看资料 10 分钟白板讲清 SE(3)、正/逆运动学、「VLA 为什么要做 action chunking」，录中文视频发给一位真研究员挨批，被问倒 ≤3 个点；② <strong>2 小时内独立把一个陌生研究仓库跑到出第一个数字，全程不问 AI</strong>。</p></div>
   </div>
 
-  <h3>Phase 1 · 第 7–18 周 —— 能跑</h3>
+  <h3>Phase 1 · 第 9–20 周 —— 能跑 ＋ 能改</h3>
   <div class="phase-detail">
-    <div><span class="lbl">学</span><p class="val">MIT 6.421 Robotic Manipulation（Tedrake）主线 ＋ CS285 精选 8–10 讲 ＋ Modern Robotics Ch 4–6。</p></div>
-    <div><span class="lbl">做</span><p class="val">LeRobot 上训 ACT 与 Diffusion Policy；下单 SO-101（一对约 $150–500）装配；真机 pick-and-place。</p></div>
-    <div class="pass"><span class="lbl">验收</span><p class="val">公开数据集复现指标落在原文 ±10% 内；真机 20 次试验成功率 &gt;80%；每次失败都能归因（标定 / 数据 / 策略 / 硬件）。产出一篇公开复现笔记。</p></div>
+    <div><span class="lbl">学</span><p class="val">MIT 6.421 Robotic Manipulation（Tedrake）主线 ＋ <strong>CS285 精选 6 讲</strong>（从 8–10 讲砍下来）＋ Modern Robotics Ch 4–6（<strong>编程作业只做 Ch 3 那批</strong>）。</p></div>
+    <div><span class="lbl">做</span><p class="val">LeRobot 上训 ACT 与 Diffusion Policy；<strong>「读 → 改 → 修」三级台阶</strong>（见第 08 节 P2）；下单 SO-101（一对约 $150–500）装配；真机 pick-and-place。</p></div>
+    <div class="pass"><span class="lbl">验收</span><p class="val">公开数据集复现指标落在原文 ±10% 内；真机 20 次成功率 &gt;80%；每次失败都能归因；<strong>能对着代码指出论文里某句话对应哪一行</strong>。产出一篇公开复现笔记。</p></div>
   </div>
+  <div class="note warn"><span class="note-label">时间从哪来 —— 这是一个判断，不是折中</span><p>新增的 2 周 L0 ＋ P0，从 Modern Robotics 的编程作业（只做 Ch 3 那批）和 CS285（8–10 讲 → 6 讲：模仿学习、策略梯度、model-based、offline RL、RL+robotics、探索各一讲）里挤出来。理由：对「数据与评测」这个终局，<strong>能跑能改的边际收益远大于多学一门课</strong> —— 卡在 CUDA 报错上的一周，损失比少听两讲 CS285 大得多。代价说清楚：Phase 2/3 各后移 2 周，L3（workshop 论文）落在第 54 周而不是第 52 周。</p></div>
 
-  <h3>Phase 2 · 第 19–34 周 —— 能测</h3>
+  <h3>Phase 2 · 第 21–36 周 —— 能测</h3>
   <div class="phase-detail">
     <div><span class="lbl">学</span><p class="val">动作表征与 VLA 论文骨架（C/E 组）＋ diffusion / flow matching ＋ Isaac Lab sim2real。</p></div>
     <div><span class="lbl">做</span><p class="val">按文档化协议自采 500 episodes；做 4 组消融（episode 数量 / 相机视角数 / 演示者熟练度 / 是否加入纠错-恢复数据）；微调一个开源 VLA；写评测 harness（扰动集、trial 数、置信区间、成功率之外的指标）。</p></div>
     <div class="pass"><span class="lbl">验收</span><p class="val">开源 eval 工具 ＋ 中文技术报告；至少一个<strong>违反直觉、且别人能复现</strong>的结论。</p></div>
   </div>
 
-  <h3>Phase 3 · 第 35–52 周 —— 能定标准</h3>
+  <h3>Phase 3 · 第 37–54 周 —— 能定标准</h3>
   <div class="phase-detail">
     <div><span class="lbl">学</span><p class="val">世界模型与 real2sim 基准（D 组）＋ 相关工作的评测方法论。</p></div>
     <div><span class="lbl">做</span><p class="val">把 Phase 2 的发现升级成规范/基准；找一个真实验室共同署名；投一个 workshop（CoRL / RSS / CVPR Embodied AI）。</p></div>
@@ -272,6 +276,8 @@
   <div class="tw"><table>
     <thead><tr><th>资源</th><th>怎么用</th><th>时长</th><th>跳过什么</th></tr></thead>
     <tbody>
+      <tr><td>工程手感速查<br><span class="lv">本仓库 ENGINEERING.md</span></td><td><strong>先读这个。</strong>7 节：跑起陌生仓库的固定套路、读 traceback 的 60 秒规则、张量形状思维、故意造 bug、租 GPU 工作流、AI 结对边界、不学清单</td><td class="num">1 小时读完</td><td>之后当查询表用，不通读</td></tr>
+      <tr><td>uv 文档 ＋ PyTorch 官方 Learn the Basics / 60-min Blitz ＋ numpy-100 前 40 题</td><td>只补写和调需要的部分：环境隔离、张量形状、autograd 直觉。<strong>照着敲，不通读</strong></td><td class="num">2 周（与线代并行）</td><td>OOP／设计模式／测试框架／打包发布</td></tr>
       <tr><td>3Blue1Brown《线性代数的本质》</td><td>只看不做题，建几何直觉</td><td class="num">2 周 × 20min</td><td>不必配 Strang 全套</td></tr>
       <tr><td>Modern Robotics<br><span class="lv">Lynch &amp; Park · 免费</span></td><td><strong>Ch 2,3,4,5,6 逐字读 ＋ 做编程作业</strong>。Ch 3（刚体运动/螺旋理论）是整个领域的通用语。免费 PDF 在 <code>hades.mech.northwestern.edu</code>，配 Northwestern 的 Coursera 与 YouTube 讲座</td><td class="num">8–10 周</td><td>Ch 7、9、10 先跳</td></tr>
       <tr><td>Karpathy: Zero to Hero ＋ nanoGPT</td><td>全程敲键盘。VLA 的底座是 LLM，不懂 transformer 就只能背名词</td><td class="num">10–15h</td><td>无</td></tr>
@@ -344,12 +350,13 @@
     <div class="day rest"><span class="d">Sun</span><div class="t">复盘 ＋ 休息</div><p class="n">30 min 复盘与下周计划，其余真的休息</p></div>
   </div>
 
-  <h4>五条硬规则</h4>
+  <h4>六条硬规则</h4>
   <div class="box"><span class="bn">01</span><p class="bb"><b>不敲键盘的学习不算学习。</b>看讲座必须配练习，看论文必须配笔记。</p></div>
   <div class="box"><span class="bn">02</span><p class="bb"><b>一次会话一个产出</b>：一条笔记、一个 commit、或一张卡片。</p></div>
   <div class="box"><span class="bn">03</span><p class="bb"><b>债务规则</b>：断 3 天以上不许补课 —— 直接缩小范围继续。「先把落下的补回来」是弃坑的头号原因。</p></div>
   <div class="box"><span class="bn">04</span><p class="bb"><b>Claude 当苏格拉底和对手，不当替读者。</b>前 6 个月禁止让它替你读论文；可以让它出题、挑你笔记的错、扮演审稿人反驳你的结论。</p></div>
-  <div class="box"><span class="bn">05</span><p class="bb"><b>公开学习</b>：每月一篇中文长文。教学是最强的压力测试，顺带积累行业影响力与 inbound。</p></div>
+  <div class="box"><span class="bn">05</span><p class="bb"><b>逐行可复述（代码侧的同一条规则）。</b>让 AI 写代码没问题 —— 但你要能逐行说出它在干什么，说不出就不许 commit。报错先自己读 60 秒再贴给它。这两条是「读得懂、写不强」时唯一的护栏：没有它们，你会攒下一堆跑过的脚本和零判断力。</p></div>
+  <div class="box"><span class="bn">06</span><p class="bb"><b>公开学习</b>：每月一篇中文长文。教学是最强的压力测试，顺带积累行业影响力与 inbound。</p></div>
   <div class="note">
     <span class="note-label">低能量日的 20 分钟版本</span>
     <p>Anki ＋ 扫一遍当日 arXiv <code>cs.RO</code> 标题 ＋ 读一篇摘要。目的只有一个：<strong>链条不断</strong>。</p>
@@ -361,13 +368,15 @@
   <div class="tw"><table>
     <thead><tr><th>#</th><th>项目</th><th>周期</th><th>成本</th><th>交付物</th></tr></thead>
     <tbody>
+      <tr><td>P0<br><span class="lv">新增</span></td><td><strong>工具链</strong>：把 3 个别人的仓库跑起来（LeRobot quickstart / micrograd / 一个 MuJoCo demo），每次踩坑记进踩坑日志</td><td class="num">2 周</td><td class="num">¥0</td><td>踩坑日志（错误 → 原因 → 解法）＋「2 小时跑通陌生仓库」自测记录</td></tr>
       <tr><td>P1</td><td>MuJoCo ＋ mujoco_menagerie：机械臂 IK ＋ 轨迹跑通，搞懂 timestep / 接触 / 求解器</td><td class="num">2 周</td><td class="num">¥0</td><td>能跑的 notebook ＋「仿真到底在算什么」笔记</td></tr>
-      <tr><td>P2</td><td>LeRobot 上复现 ACT 与 Diffusion Policy（公开数据集），对齐论文指标</td><td class="num">3 周</td><td class="num">GPU 按小时租</td><td>复现报告 ＋ 两种方法失效模式对照表</td></tr>
+      <tr><td>P2</td><td>LeRobot 上复现 ACT 与 Diffusion Policy，对齐论文指标。<strong>三级台阶</strong>：① <strong>读</strong> —— 找到 ACT 的 <code>forward</code>，手画数据从 dataloader 到 loss 的形状变化图；② <strong>改</strong> —— 只改一个东西（chunk size / 相机数 / episode 数），跑，看曲线怎么变；③ <strong>修</strong> —— 故意改错一个形状，读 traceback，自己修回来，做 3 次</td><td class="num">3 周</td><td class="num">GPU 按小时租</td><td>复现报告 ＋ 失效模式对照表 ＋ 那张形状变化图</td></tr>
       <tr><td>P3</td><td>真机：SO-101 一对（3–4h 装配）自采数据 → 训练 → 20 trial 真机评测</td><td class="num">4 周</td><td class="num">$150–500</td><td>视频 ＋ 失败归因表（标定/数据/策略/硬件）</td></tr>
       <tr><td>P4</td><td>数据科学实验：自采 500 episodes，4 组消融（数量 / 视角 / 演示者熟练度 / 纠错-恢复数据）</td><td class="num">6–8 周</td><td class="num">GPU</td><td>scaling 曲线 ＋ 至少一个反直觉结论</td></tr>
       <tr><td>P5</td><td>评测基准：把 P4 协议做成开源 harness（扰动集、报告格式、置信区间），横评 3 个开源 VLA</td><td class="num">8–12 周</td><td class="num">GPU</td><td>开源工具 ＋ 技术报告 → 投 workshop</td></tr>
     </tbody>
   </table></div>
+  <div class="note warn"><span class="note-label">P0 不许跳过</span><p>后面每个项目卡住时，九成不是概念不懂，是环境、路径、张量形状、显存。P0 就是专门为此设的 —— 而且它的交付物（踩坑日志）是你未来带团队时最值钱的东西之一。</p></div>
   <p><strong>加分项</strong>：NVIDIA 有官方教程「Train an SO-101 Robot From Sim-to-Real With Isaac」，正好把 Isaac Lab 接进 P3/P4，也顺便建立你和产业主流工具链的对话能力。</p>
   <div class="note warn">
     <span class="note-label">硬件纪律</span>
@@ -414,9 +423,10 @@
     <thead><tr><th>级</th><th>时点</th><th>测试</th><th>通过标准</th></tr></thead>
     <tbody>
       <tr><td>L0 表达关</td><td class="num">第 6 周</td><td>不看资料 10 分钟白板讲 SE(3)、正/逆运动学、action chunking 的动机 → 录中文视频请一位真研究员挑错</td><td>被问倒 ≤3 个点</td></tr>
-      <tr><td>L1 复现关</td><td class="num">第 18 周</td><td>公开数据集复现 ＋ SO-101 真机 20 trial</td><td>指标 ±10%；成功率 &gt;80%；每次失败能归因</td></tr>
-      <tr><td>L2 实验关</td><td class="num">第 34 周</td><td>自采数据 ＋ 4 组消融 ＋ 技术报告</td><td>产出一个反直觉且可复现的结论；<strong>被一位研究者认真反驳</strong>（被反驳＝进入了对话，比被点赞有价值）</td></tr>
-      <tr><td>L3 研究关</td><td class="num">第 52 周</td><td>workshop 论文 / 开源基准 ＋ 一次公开演讲</td><td>被外部团队使用或引用；问答扛住研究员追问</td></tr>
+      <tr><td>L0.5 工程关<br><span class="lv">新增</span></td><td class="num">第 8 周</td><td>拿一个没见过的研究仓库（比如某篇 VLA 论文的官方 repo），从零跑到出第一个数字</td><td><strong>2 小时内、全程不问 AI</strong>；踩坑日志有记录</td></tr>
+      <tr><td>L1 复现关</td><td class="num">第 20 周</td><td>公开数据集复现 ＋ SO-101 真机 20 trial ＋ 那张形状变化图</td><td>指标 ±10%；成功率 &gt;80%；能对着代码指出论文某句话在哪一行</td></tr>
+      <tr><td>L2 实验关</td><td class="num">第 36 周</td><td>自采数据 ＋ 4 组消融 ＋ 技术报告</td><td>产出一个反直觉且可复现的结论；<strong>被一位研究者认真反驳</strong>（被反驳＝进入了对话，比被点赞有价值）</td></tr>
+      <tr><td>L3 研究关</td><td class="num">第 54 周</td><td>workshop 论文 / 开源基准 ＋ 一次公开演讲</td><td>被外部团队使用或引用；问答扛住研究员追问</td></tr>
       <tr><td>L4 标准关</td><td class="num">第 2 年</td><td>采集/评测规范外溢</td><td>≥2 个外部团队采用；能作为共同作者进入正式论文</td></tr>
     </tbody>
   </table></div>
@@ -441,6 +451,7 @@
     <li><b>张口融资额和参数量，闭口没有单位经济和失效模式</b> —— 研究员和买方会在 3 分钟内给你降级。</li>
     <li><b>想用 1h/天变成全职研究员，然后因为「我是冒牌货」而放弃</b> —— 身份按第 01 节的定义来，别拿别人的赛道量自己的进度。</li>
     <li><b>躲开脏活</b>（标定、时间戳同步、数据管线、评测）—— 这恰好是你公司所在的位置，也是你唯一能建立复利的地方。</li>
+    <li><b>让 AI 写完就 commit，自己说不出每行在干什么</b> —— 对「读得懂、写不强」的人这是最贴身的坑：进度看起来很快，但六个月后你既没有工程手感，也没有对结果的判断力。护栏就是逐行可复述 ＋ 60 秒规则。</li>
     <li><b>学习不产出</b> —— 没有 repo、没有文章、没有可被检验的东西，12 个月后你无法向任何人证明任何事。</li>
   </ul>
 </section>
@@ -450,7 +461,7 @@
   <div class="box"><span class="bn">01</span><p class="bb">建 <code>learning-log</code> repo：<code>notes/ papers/ predictions/ experiments/</code>，<b>今天</b>写第一条笔记。</p></div>
   <div class="box"><span class="bn">02</span><p class="bb">把每天 90 分钟锁进日历（最好在上班前），并让家人/同事知道这个时段不可约。</p></div>
   <div class="box"><span class="bn">03</span><p class="bb">下单 SO-101 一对（或先向同事借一条臂），预留一个周末 3–4h 装配。</p></div>
-  <div class="box"><span class="bn">04</span><p class="bb">装环境：MuJoCo ＋ LeRobot quickstart 跑通（一个下午够了）。</p></div>
+  <div class="box"><span class="bn">04</span><p class="bb">读完工程手感速查（1 小时），然后开 P0：uv 建环境 → LeRobot quickstart 跑通 → 踩坑记进日志。<b>跑不通是正常的 —— 记录跑不通的过程就是这一步的产出。</b></p></div>
   <div class="box"><span class="bn">05</span><p class="bb">开始 3B1B 线代第一集 ＋ Modern Robotics Ch 3 前 10 页。</p></div>
   <div class="box"><span class="bn">06</span><p class="bb">写下本季度 10 条预测（含置信度），封存到 <code>predictions/2026Q3.md</code>。</p></div>
   <div class="box"><span class="bn">07</span><p class="bb">约 3 场对话：1 位研究员、1 位供应链、1 位买方。</p></div>

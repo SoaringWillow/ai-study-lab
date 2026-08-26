@@ -40,3 +40,31 @@ PitchBook / Tracxn（WorldEngine 画像）· arXiv 2405.14093 / 2505.04769 / 250
 2. 把本季度 10 条预测填进 `predictions/2026Q3.md` 并封存。
 3. 日历上锁死每天 90 分钟；下单 SO-101 一对。
 4. MuJoCo + LeRobot quickstart 跑通（P1 起步）。
+
+---
+
+## Session 002 · 2026-08-24 —— 背景校正：C 类（读得懂、写不强）
+
+**触发**：owner 追问「能亲手把产品从 0 推到有护城河论述」这句是从哪读出来的。核对后确认：证据（`TravelPanel/CLAUDE.md` 的技术决策表、`:113` North Star Metric、`:57` state machines、`:21` anti-patterns、`SESSIONS.md:17` #1 moat）只能支撑「设定标准 + 运维 agent 队伍并验收」，**不能**支撑「逐字写了代码」—— `TravelPanel/SESSIONS.md:3` 明写 "Auto-maintained by Claude"。原判断「工程读写能力在线」是过度推断。
+
+owner 自陈：**C 类 —— 定方向和标准、Claude 落地、读 diff 和 review，能读懂基础代码但写和调不强。**
+
+**据此改了什么**
+
+| 位置 | 改动 |
+|---|---|
+| `PLAN.md` §0 | 技术姿态改成校正后的描述，并标注第二个缺口是「读→跑→改」的工程手感 |
+| `PLAN.md` §3 | 能力树新增 **L0 工程手感**（2 周 + 贯穿），标准是「2 小时内独立跑通陌生研究仓库，全程不问 AI」 |
+| `PLAN.md` §4 | Phase 0：6 周 → **8 周**；Phase 1/2/3 各后移 2 周（L3 落第 54 周）。Phase 1 加「读→改→修」三级台阶 |
+| `PLAN.md` §5 | 必修表最前面加 ENGINEERING.md 与 uv / PyTorch 官方 basics / numpy-100 前 40 题；明确 Karpathy Zero-to-Hero 对 C 类是双重收益（micrograd 100 行 = 最好的 Python + 张量训练） |
+| `PLAN.md` §7 | 硬规则 五条 → **六条**，新增**逐行可复述 + 报错 60 秒规则** |
+| `PLAN.md` §10 | 验证阶梯新增 **L0.5 工程关**（第 8 周）；L1/L2/L3 时点顺延 |
+| `PLAN.md` §12 | 第一周第 4 件事换成「读完 ENGINEERING.md 然后开 P0」 |
+| `ENGINEERING.md` | **新增。** 7 节：跑起陌生仓库的固定套路 / 读 traceback 的 60 秒规则 / 张量形状思维（含机器人策略的标准形状约定）/ 故意造 bug / 租 GPU 三命令 / AI 结对边界表 / 明确不学清单 |
+| `experiments/README.md` | 新增 **P0 工具链**；P2 改成读-改-修三级台阶 |
+| `CLAUDE.md` | 技术姿态校正；Claude 的「不允许」从 1 条扩到 3 条（加逐行可复述、加 60 秒规则） |
+| `site/` + Artifact | 同步全部改动并重新发布（URL 不变） |
+
+**取舍说明（不是折中，是判断）**：新增的 2 周从 Modern Robotics 编程作业（只做 Ch 3 那批）和 CS285（8–10 讲 → 6 讲）里挤。理由：对「数据与评测」这个终局，能跑能改的边际收益大于多学一门课；卡在 CUDA 报错上的一周，损失比少听两讲大得多。代价：L3 从第 52 周推到第 54 周。
+
+**下次从这里继续**：`notes/` 第一条 + `predictions/2026Q3.md` 填满 + P0 开工。
