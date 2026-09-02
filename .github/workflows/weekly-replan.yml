@@ -1,0 +1,71 @@
+name: weekly replan
+
+# Sunday 21:00 CST -> 13:00 UTC Sunday. PLAN.md §7 makes Sunday the review day.
+#
+# This is the loop that keeps the plan honest: read what actually happened,
+# write it into state.yaml, report it, and ask the one question that needs
+# judgement. Its weekly commit also keeps the daily cron alive — GitHub
+# disables scheduled workflows after 60 days without repository activity.
+
+on:
+  schedule:
+    - cron: "0 13 * * 0"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: print everything, send and commit nothing
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # commit state.yaml
+  issues: read      # read daily-log issues
+
+concurrency:
+  group: weekly-replan
+
+jobs:
+  replan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install --quiet pyyaml
+
+      - name: Ingest this week's logs
+        run: python bot/ingest.py ${{ inputs.dry_run == true && '--dry-run' || '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Weekly report
+        run: python bot/render.py --weekly --preview
+        env:
+          REPO_BRANCH: main
+
+      - name: Commit state
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet -- schedule/state.yaml; then
+            echo "state.yaml unchanged"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add schedule/state.yaml
+          git commit -m "Ingest weekly study logs into schedule/state.yaml"
+          git push
+
+      - name: Send weekly card
+        if: ${{ inputs.dry_run != true }}
+        run: python bot/send.py --weekly
+        env:
+          LARK_APP_ID: ${{ secrets.LARK_APP_ID }}
+          LARK_APP_SECRET: ${{ secrets.LARK_APP_SECRET }}
+          LARK_RECEIVE_ID: ${{ secrets.LARK_RECEIVE_ID }}
+          LARK_DOMAIN: ${{ vars.LARK_DOMAIN }}
+          REPO_BRANCH: main

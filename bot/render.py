@@ -310,6 +310,90 @@ def as_card(ctx: dict) -> dict:
 
 # ---------- lint ----------
 
+def weekly_summary(week: int) -> dict[str, Any]:
+    """What actually happened in one week, from state.yaml."""
+    curriculum, resources, state = load()
+    start = dt.date.fromisoformat(str(state["start_date"]))
+    lo = start + dt.timedelta(days=(week - 1) * 7)
+    hi = lo + dt.timedelta(days=7)
+
+    rows = [r for r in (state.get("log") or [])
+            if lo <= dt.date.fromisoformat(str(r["date"])) < hi]
+    scheduled = len(list(scheduled_dates(curriculum, start, lo, hi)))
+    produced = [r for r in rows if r["status"] in ("done", "degraded")]
+    layers: dict[str, int] = {}
+    for r in rows:
+        if r.get("layer"):
+            layers[r["layer"]] = layers.get(r["layer"], 0) + 1
+    mins = sorted(r["minutes"] for r in rows if r.get("minutes"))
+
+    return {
+        "week": week, "scheduled": scheduled,
+        "produced": len(produced),
+        "degraded": sum(1 for r in produced if r["status"] == "degraded"),
+        "stuck": sum(1 for r in rows if r["status"] == "stuck"),
+        "layers": sorted(layers.items(), key=lambda kv: -kv[1]),
+        "median_minutes": mins[len(mins) // 2] if mins else None,
+        "next_topics": [
+            u["topic"] for d in (1, 2, 3, 4, 5, 6)
+            if (u := find_unit(curriculum, week + 1, d))
+        ],
+        "slug": repo_slug(),
+    }
+
+
+def weekly_lines(s: dict) -> list[str]:
+    out = [f"**本周产出 {s['produced']}/{s['scheduled']} 天**"
+           + (f"（其中 {s['degraded']} 天是 20 分钟版）" if s["degraded"] else "")]
+    if s["stuck"]:
+        out.append(f"卡住 {s['stuck']} 次")
+    if s["layers"]:
+        out.append("卡点分层：" + " · ".join(f"{k} ×{v}" for k, v in s["layers"]))
+    if s["median_minutes"]:
+        out.append(f"实际耗时中位数 {s['median_minutes']}′"
+                   + ("（排得太满了，下周该砍）" if s["median_minutes"] > 100 else ""))
+    if s["produced"] == 0:
+        out.append("这周一件都没交 —— 按债务规则不补课，下周直接缩小范围继续。")
+    if s["next_topics"]:
+        out.append(f"\n**下周 W{s['week'] + 1}**")
+        out += [f"　· {t}" for t in s["next_topics"]]
+    else:
+        out.append(f"\n课程表还没排到 W{s['week'] + 1} —— 在 replan issue 里回一句话。")
+    return out
+
+
+def replan_url(s: dict) -> str:
+    q = urllib.parse.urlencode({
+        "labels": "replan",
+        "title": f"replan: W{s['week'] + 1}",
+        "body": (
+            f"W{s['week']} 实际产出 {s['produced']}/{s['scheduled']} 天，"
+            f"卡住 {s['stuck']} 次。\n\n"
+            "回答这三个问题就够了，Claude 下次会话据此改 curriculum.yaml：\n\n"
+            "1. 哪天没做？为什么（没时间 / 没兴趣 / 卡住了 / 排得太满）？\n"
+            "2. 卡点集中在哪一层？需要为它单独排一天吗？\n"
+            f"3. W{s['week'] + 1} 要不要砍范围？砍范围不是失败（PLAN.md §13）。\n"
+        ),
+    })
+    return f"https://github.com/{s['slug']}/issues/new?{q}"
+
+
+def as_weekly_card(s: dict) -> dict:
+    return {
+        "config": {"wide_screen_mode": True},
+        "header": {"template": "wathet",
+                   "title": {"tag": "plain_text", "content": f"W{s['week']} 周报 · 复盘 30 分钟"}},
+        "elements": [
+            _md("\n".join(weekly_lines(s))),
+            {"tag": "hr"},
+            {"tag": "action", "actions": [{
+                "tag": "button",
+                "text": {"tag": "plain_text", "content": f"回一句话 → 排 W{s['week'] + 1}"},
+                "url": replan_url(s), "type": "primary"}]},
+        ],
+    }
+
+
 def _check_debt_rule(curriculum: dict, start: dt.date) -> list[str]:
     """The debt rule is the one piece of logic with real consequences (it can
     silently shrink every card), so pin its behaviour here rather than in a
@@ -424,10 +508,22 @@ def main() -> int:
     p.add_argument("--urls", action="store_true", help="with --preview, print full issue URLs")
     p.add_argument("--check-all", action="store_true", help="lint the curriculum")
     p.add_argument("--today", help="override today's date (for testing the debt rule)")
+    p.add_argument("--weekly", action="store_true", help="weekly report card")
+    p.add_argument("--week", type=int, help="with --weekly; defaults to the current week")
     a = p.parse_args()
 
     if a.check_all:
         return check_all()
+
+    if a.weekly:
+        _, _, state = load()
+        start = dt.date.fromisoformat(str(state["start_date"]))
+        today = dt.date.fromisoformat(a.today) if a.today else today_cst()
+        s = weekly_summary(a.week or week_and_day(today, start)[0])
+        print("\n".join([f"W{s['week']} 周报"] + weekly_lines(s) +
+                        ["", f"replan: {replan_url(s)}"]) if a.preview
+              else json.dumps(as_weekly_card(s), ensure_ascii=False, indent=2))
+        return 0
 
     today = dt.date.fromisoformat(a.today) if a.today else today_cst()
     # No date given: morning plans today, evening plans tomorrow.

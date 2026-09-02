@@ -75,6 +75,7 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--date", help="target study date, YYYY-MM-DD")
     p.add_argument("--slot", choices=("morning", "evening"), default="morning")
+    p.add_argument("--weekly", action="store_true", help="send the weekly report instead")
     p.add_argument("--dry-run", action="store_true",
                    help="print the request and exit; secrets redacted")
     a = p.parse_args()
@@ -82,7 +83,15 @@ def main() -> int:
     today = render.today_cst()
     date = (dt.date.fromisoformat(a.date) if a.date
             else today + dt.timedelta(days=1) if a.slot == "evening" else today)
-    card = render.as_card(render.build(date, a.slot, today=today))
+    if a.weekly:
+        _, _, state = render.load()
+        start = dt.date.fromisoformat(str(state["start_date"]))
+        week = render.week_and_day(today, start)[0]
+        card = render.as_weekly_card(render.weekly_summary(week))
+        label = f"W{week} weekly"
+    else:
+        card = render.as_card(render.build(date, a.slot, today=today))
+        label = f"{date} {a.slot}"
 
     # `or`, not a get() default: CI passes vars.LARK_DOMAIN as an EMPTY string
     # when the variable is unset, which a default value would never see.
@@ -117,7 +126,7 @@ def main() -> int:
     print(json.dumps(out, ensure_ascii=False))
     if out.get("code") != 0:
         raise SystemExit(f"send failed: code={out.get('code')} msg={out.get('msg')}")
-    print(f"sent {date} {a.slot} -> {receive_type}:{receive_id}")
+    print(f"sent {label} -> {receive_type}:{receive_id}")
     return 0
 
 
