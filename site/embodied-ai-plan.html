@@ -250,7 +250,7 @@
   <h3>Phase 0 · 第 1–8 周 —— 能读 ＋ 能跑起来</h3>
   <div class="phase-detail">
     <div><span class="lbl">学</span><p class="val">工程手感速查（第 1–2 周，与线代并行）→ 3Blue1Brown 线代 → Modern Robotics Ch 2–3（刚体运动/螺旋理论，这是命门）→ Karpathy Zero-to-Hero。<strong>对「写不强」的人 Zero-to-Hero 是双重收益</strong>：既是 transformer，也是最好的 Python ＋ 张量思维训练 —— micrograd 只 100 行，概念密度极高，敲一遍抵三门 Python 课。</p></div>
-    <div><span class="lbl">做</span><p class="val"><strong>P0 工具链</strong>：把 3 个别人的仓库跑起来（LeRobot quickstart / micrograd / 一个 MuJoCo demo），每次踩坑记进踩坑日志 → 然后 MuJoCo 跑通机械臂 IK ＋ 轨迹；建 <code>learning-log</code> repo。</p></div>
+    <div><span class="lbl">做</span><p class="val"><strong>P0 工具链</strong>：把 3 个别人的仓库跑起来（<strong>micrograd → 一个 MuJoCo demo → LeRobot quickstart</strong>，每个考一类坑：环境隔离 / 二进制依赖 / 研究仓库全套），每次踩坑记进踩坑日志 → 然后 MuJoCo 跑通机械臂 IK ＋ 轨迹；建 <code>learning-log</code> repo。</p></div>
     <div class="pass"><span class="lbl">验收</span><p class="val">① 不看资料 10 分钟白板讲清 SE(3)、正/逆运动学、「VLA 为什么要做 action chunking」，录中文视频发给一位真研究员挨批，被问倒 ≤3 个点；② <strong>2 小时内独立把一个陌生研究仓库跑到出第一个数字，全程不问 AI</strong>。</p></div>
   </div>
 
@@ -375,7 +375,7 @@
   <div class="tw"><table>
     <thead><tr><th>#</th><th>项目</th><th>周期</th><th>成本</th><th>交付物</th></tr></thead>
     <tbody>
-      <tr><td>P0<br><span class="lv">新增</span></td><td><strong>工具链</strong>：把 3 个别人的仓库跑起来（LeRobot quickstart / micrograd / 一个 MuJoCo demo），每次踩坑记进踩坑日志</td><td class="num">2 周</td><td class="num">¥0</td><td>踩坑日志（错误 → 原因 → 解法）＋「2 小时跑通陌生仓库」自测记录</td></tr>
+      <tr><td>P0<br><span class="lv">新增</span></td><td><strong>工具链</strong>：把 3 个别人的仓库跑起来 —— <strong>micrograd → 一个 MuJoCo demo → LeRobot quickstart</strong>，顺序有理由：每个考一类坑（纯 Python 环境隔离 → 二进制/渲染依赖 → 研究仓库全套：大依赖树＋数据下载＋显存）。倒过来做会在第一天被一个 CUDA 报错埋掉，然后分不清是哪一层的问题。每次踩坑记进踩坑日志</td><td class="num">2 周</td><td class="num">¥0</td><td>踩坑日志（错误 → 原因 → 解法）＋「2 小时跑通陌生仓库」自测记录</td></tr>
       <tr><td>P1</td><td>MuJoCo ＋ mujoco_menagerie：机械臂 IK ＋ 轨迹跑通，搞懂 timestep / 接触 / 求解器</td><td class="num">2 周</td><td class="num">¥0</td><td>能跑的 notebook ＋「仿真到底在算什么」笔记</td></tr>
       <tr><td>P2</td><td>LeRobot 上复现 ACT 与 Diffusion Policy，对齐论文指标。<strong>三级台阶</strong>：① <strong>读</strong> —— 找到 ACT 的 <code>forward</code>，手画数据从 dataloader 到 loss 的形状变化图；② <strong>改</strong> —— 只改一个东西（chunk size / 相机数 / episode 数），跑，看曲线怎么变；③ <strong>修</strong> —— 故意改错一个形状，读 traceback，自己修回来，做 3 次</td><td class="num">3 周</td><td class="num">GPU 按小时租</td><td>复现报告 ＋ 失效模式对照表 ＋ 那张形状变化图</td></tr>
       <tr><td>P3</td><td>真机：SO-101 一对（3–4h 装配）自采数据 → 训练 → 20 trial 真机评测</td><td class="num">4 周</td><td class="num">$150–500</td><td>视频 ＋ 失败归因表（标定/数据/策略/硬件）</td></tr>
@@ -468,9 +468,9 @@
   <div class="box"><span class="bn">01</span><p class="bb">建 <code>learning-log</code> repo：<code>notes/ papers/ predictions/ experiments/</code>，<b>今天</b>写第一条笔记。</p></div>
   <div class="box"><span class="bn">02</span><p class="bb">把每天 90 分钟锁进日历（最好在上班前），并让家人/同事知道这个时段不可约。</p></div>
   <div class="box"><span class="bn">03</span><p class="bb">下单 SO-101 一对（或先向同事借一条臂），预留一个周末 3–4h 装配。</p></div>
-  <div class="box"><span class="bn">04</span><p class="bb">读完工程手感速查（1 小时），然后开 P0：uv 建环境 → LeRobot quickstart 跑通 → 踩坑记进日志。<b>跑不通是正常的 —— 记录跑不通的过程就是这一步的产出。</b></p></div>
+  <div class="box"><span class="bn">04</span><p class="bb">读完工程手感速查（1 小时），然后开 P0：uv 建环境 → micrograd 跑通 → 踩坑记进日志。<b>跑不通是正常的 —— 记录跑不通的过程就是这一步的产出。</b></p></div>
   <div class="box"><span class="bn">05</span><p class="bb">开始 3B1B 线代第一集 ＋ Modern Robotics Ch 3 前 10 页。</p></div>
-  <div class="box"><span class="bn">06</span><p class="bb">写下本季度 10 条预测（含置信度），封存到 <code>predictions/2026Q3.md</code>。</p></div>
+  <div class="box"><span class="bn">06</span><p class="bb">开预测日志：<code>predictions/2026Q3.md</code> 写 <b>5 条短周期预测</b>（含置信度，9/30 到期）当校准热身 —— Q3 只剩 4 周，硬凑 10 条会被迫写一批低信息量的题，反而污染命中率基线。正式的季度 10 条从 <code>2026Q4.md</code>（10-01 开）起。至少写 1 条<b>你希望它是错的</b>。</p></div>
   <div class="box"><span class="bn">07</span><p class="bb">约 3 场对话：1 位研究员、1 位供应链、1 位买方。</p></div>
 </section>
 
