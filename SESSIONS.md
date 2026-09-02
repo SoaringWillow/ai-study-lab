@@ -68,3 +68,33 @@ owner 自陈：**C 类 —— 定方向和标准、Claude 落地、读 diff 和 
 **取舍说明（不是折中，是判断）**：新增的 2 周从 Modern Robotics 编程作业（只做 Ch 3 那批）和 CS285（8–10 讲 → 6 讲）里挤。理由：对「数据与评测」这个终局，能跑能改的边际收益大于多学一门课；卡在 CUDA 报错上的一周，损失比少听两讲大得多。代价：L3 从第 52 周推到第 54 周。
 
 **下次从这里继续**：`notes/` 第一条 + `predictions/2026Q3.md` 填满 + P0 开工。
+
+---
+
+## Session 003 · 2026-09-02 —— 收尾迁移 + 会话交接
+
+**做了**
+
+- 关闭 TravelPanel PR #179（净变更只有 2 行自动会话日志，计划内容已在本仓库）。
+- **未完成**：删除远端分支 `claude/ai-career-development-plan-qwj1d6`。`git push origin --delete` 两次都被中断（`send-pack: unexpected disconnect`），会话的 GitHub App token 似乎没有 delete_ref 权限，MCP 也没有删分支的工具。**需要在 GitHub 网页上手动删**：https://github.com/SoaringWillow/TravelPanel/branches —— 或在已关闭的 PR #179 页面点 "Delete branch"。删掉后 TravelPanel 与本计划再无关联。
+
+**当前状态（新会话接手时先看这里）**
+
+| 项 | 状态 |
+|---|---|
+| 计划本体 `PLAN.md` | 已按「C 类：读得懂、写不强」校正过（见 Session 002），含 L0 工程手感层、P0 项目、L0.5 验收关 |
+| `ENGINEERING.md` | 已写好，7 节，Phase 0 第 1 周就要读 |
+| 网页版 Artifact | https://claude.ai/code/artifact/ed18a729-7ebe-40d0-97f7-3a1e13ad44f8 （与 `site/embodied-ai-plan.html` 同步） |
+| `notes/` | **空** —— 一条都还没写 |
+| `predictions/2026Q3.md` | **空**，且 Q3 只剩 4 周 |
+| `experiments/` | **P0 未开工** |
+| 计划起算日 | **尚未确定** —— Phase 0 第 1 周从哪天算，需要 owner 定 |
+
+**关于预测日志的建议（等 owner 拍板）**：Q3 只剩 4 周，现在填 10 条季度级预测不合适。建议改成：现在写 **5 条短周期预测（9/30 到期）**当校准热身 —— 反馈快、便于建立打分习惯；10 月 1 日再按正式格式开 `2026Q4.md` 写满 10 条。
+
+**下一步（优先级顺序）**
+
+1. 定起算日，把每天 90 分钟锁进日历。
+2. 读 `ENGINEERING.md`（1 小时），开 P0：uv 建环境 → LeRobot quickstart → 踩坑日志。
+3. 写 `notes/` 第一条。
+4. 按上面的建议处理预测日志。
