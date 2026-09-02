@@ -12,6 +12,7 @@
 | **[PLAN.md](./PLAN.md)** | 主计划：目标校准、战场选择、能力树 L0–L6、四阶段路线图、课程与论文清单、每日节奏、项目阶梯、能力验证阶梯 |
 | **[ENGINEERING.md](./ENGINEERING.md)** | 工程手感速查：跑起陌生仓库、读 traceback 的 60 秒规则、张量形状思维、租 GPU 工作流、AI 结对的边界 |
 | [site/embodied-ai-plan.html](./site/embodied-ai-plan.html) | 同一份计划的网页版（已发布为 Artifact，见 SESSIONS.md 里的链接） |
+| **[schedule/README.md](./schedule/README.md)** | 每日简报机器人：把 PLAN 编译成 90 分钟单元，每天两次推到 Lark。本机接手看 [schedule/HANDOFF.md](./schedule/HANDOFF.md) |
 | [SESSIONS.md](./SESSIONS.md) | 会话日志：每次和 Claude 的工作留下的决策与依据 |
 | [CLAUDE.md](./CLAUDE.md) | 给未来 Claude 会话的上下文（背景、战略、写作约定） |
 
