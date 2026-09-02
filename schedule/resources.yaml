@@ -1,0 +1,119 @@
+# Resource library. curriculum.yaml refers to these by id, so a dead link
+# is fixed in exactly one place.
+#
+# Verification status (2026-09-02): every `url` below was either confirmed by
+# fetch/search this session, or is a repo-relative path. Chapter/episode
+# granularity only — no invented page numbers. Anything unverified is marked.
+
+engineering:
+  title: 工程手感速查（本仓库）
+  url: ./ENGINEERING.md
+  kind: local
+  note: 7 节。第 1 节是跑起陌生仓库的固定套路，第 2 节是 60 秒规则。
+
+3b1b-linalg:
+  title: 3Blue1Brown 线性代数的本质
+  url: https://www.bilibili.com/video/BV1ys411472E/
+  alt_url: https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab
+  kind: video
+  note: B 站官方双语合集为主链（国内可直连）；YouTube 播放列表为备链。
+  episodes:
+    1: 向量究竟是什么？
+    2: 线性组合、张成的空间与基
+    3: 线性变换与矩阵
+    4: 矩阵乘法与复合变换
+
+micrograd:
+  title: karpathy/micrograd
+  url: https://github.com/karpathy/micrograd
+  kind: repo
+  note: 纯 Python、无 GPU、无数据集。demo.ipynb 是那个「训练 2 层 MLP 看 loss 下降」的入口；`python -m pytest` 需要装 torch 当参照。
+
+numpy-100:
+  title: rougier/numpy-100
+  url: https://github.com/rougier/numpy-100
+  kind: repo
+  note: 只做前 40 题（PLAN.md §5）。
+
+pytorch-basics:
+  title: PyTorch 官方 Learn the Basics
+  url: https://pytorch.org/tutorials/beginner/basics/intro.html
+  kind: doc
+  unverified: 本会话 egress 封了 pytorch.org，链接未实测；W2 用到前先点一下。
+
+modern-robotics:
+  title: Modern Robotics（Lynch & Park）免费 PDF
+  url: https://hades.mech.northwestern.edu/images/7/7f/MR.pdf
+  kind: pdf
+  note: 链接出自 PLAN.md §5。Ch 3（刚体运动/螺旋理论）是整个领域的通用语。
+
+zero-to-hero:
+  title: Karpathy Neural Networks Zero to Hero
+  url: https://karpathy.ai/zero-to-hero.html
+  kind: video
+  unverified: 未实测；W5 用到前先点一下。
+
+nanogpt:
+  title: karpathy/nanoGPT
+  url: https://github.com/karpathy/nanoGPT
+  kind: repo
+  unverified: 未实测；W7 用到前先点一下。
+
+lerobot:
+  title: huggingface/lerobot
+  url: https://github.com/huggingface/lerobot
+  kind: repo
+  note: P0 第三个仓库。大依赖树 + 数据集下载 + 显存，是研究仓库的全套复杂度。
+
+mujoco:
+  title: google-deepmind/mujoco
+  url: https://github.com/google-deepmind/mujoco
+  kind: repo
+  unverified: 未实测；W2 动手日用到前先点一下。
+
+# —— 本仓库的四本账（产出落在这些文件里）——
+
+notes:
+  title: 学习笔记
+  url: ./notes/
+  kind: local
+
+papers:
+  title: 论文笔记（5 问模板见 papers/BACKLOG.md）
+  url: ./papers/BACKLOG.md
+  kind: local
+
+predictions-q3:
+  title: 预测日志 · 第 0 期
+  url: ./predictions/2026Q3.md
+  kind: local
+
+p0-log:
+  title: P0 踩坑日志
+  url: ./experiments/P0-toolchain/踩坑日志.md
+  kind: local
+
+p0-readme:
+  title: P0 工具链说明
+  url: ./experiments/P0-toolchain/README.md
+  kind: local
+
+# —— 论文（arXiv 编号已逐个核对）——
+
+paper-act:
+  title: "ACT / ALOHA: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+  url: https://arxiv.org/abs/2304.13705
+  kind: paper
+  note: 已核对（Zhao, Kumar, Levine, Finn, 2023-04）。action chunking 的原始出处。
+
+paper-diffusion-policy:
+  title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+  url: https://arxiv.org/abs/2303.04137
+  kind: paper
+  note: 已核对（Chi 等，含 Tedrake、Song）。
+
+paper-openvla:
+  title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+  url: https://arxiv.org/abs/2406.09246
+  kind: paper
+  note: 已核对（7B，970k demonstrations）。

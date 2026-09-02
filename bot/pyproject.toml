@@ -1,0 +1,8 @@
+[project]
+name = "study-brief-bot"
+version = "0.1.0"
+description = "Compile schedule/*.yaml into a daily Lark card for the embodied-AI study plan"
+requires-python = ">=3.11"
+# pyyaml only. HTTP goes through stdlib urllib on purpose — one less thing to
+# install on a machine that just needs to send one message.
+dependencies = ["pyyaml>=6.0"]

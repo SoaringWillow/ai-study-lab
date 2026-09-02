@@ -1,0 +1,62 @@
+name: 每日回执
+description: 当天那张卡片的回执。三种情况都走这里 —— 交产出 / 卡住了 / 20 分钟版。
+title: "YYYY-MM-DD · 交产出 · "
+labels: ["daily-log"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        标题和下面几栏由卡片按钮预填，你只需要补内容。
+        **这份回执本身就是当天的产出证据** —— 时间戳改不了，这是它比打勾有用的地方。
+
+  - type: input
+    id: unit
+    attributes:
+      label: 单元
+      description: 卡片预填，不用改。
+      placeholder: W1 D3 · 课程主线 · ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: answer
+    attributes:
+      label: 今天那一问的答案
+      description: 卡片会把问题预填在这里。不看资料先答，答完再去对。答不上来就写「答不上来」加你卡在哪一步 —— 那比编一个漂亮答案有用得多。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: 卡在哪一层
+      description: 只在「卡住了」时选。这一栏两周后会汇总成分层统计，用来回答「我到底弱在哪一层」。
+      options:
+        - 没卡住
+        - 环境隔离（venv / 版本 / editable install）
+        - 系统依赖（二进制、渲染后端、驱动）
+        - 数据（路径、下载、格式）
+        - 显存 / GPU
+        - 代码本身（形状、API 变更）
+        - 概念（不是工程问题，是真没懂）
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 产出在哪
+      description: 文件路径或 commit 链接。写了但没提交也算 —— 贴路径就行。
+      placeholder: notes/2026-09-02.md
+    validations:
+      required: false
+
+  - type: input
+    id: minutes
+    attributes:
+      label: 实际花了多少分钟
+      description: 用来校准课程表的 minutes 字段。老是超时说明我排得太满，该砍。
+      placeholder: "90"
+    validations:
+      required: false

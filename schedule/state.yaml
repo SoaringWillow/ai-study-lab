@@ -1,0 +1,16 @@
+# Runtime state. bot/ingest.py writes this from daily-log issues; you can also
+# hand-edit it. Keep it small — the interesting history lives in notes/ and in
+# the issues themselves.
+
+start_date: 2026-09-02      # PLAN.md §4. Week boundaries are aligned to this date.
+timezone: Asia/Shanghai
+
+# Last date that produced an artifact (done or degraded both count — a degraded
+# day keeps the chain alive, which is the whole point of the 20-minute version).
+# null = nothing logged yet.
+last_output_date: null
+
+# One row per logged day, appended by ingest.py.
+#   status: done | stuck | degraded
+#   layer:  only for stuck — 环境隔离 | 系统依赖 | 数据 | 显存 | 代码 | 概念
+log: []

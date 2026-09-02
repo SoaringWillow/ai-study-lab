@@ -1,0 +1,77 @@
+name: daily brief
+
+# Two pushes a day, Beijing time (PLAN.md §7 puts the 90 minutes before work):
+#   21:30 CST 「明日安排」 -> 13:20 UTC same day   (cron 10 min early; Actions
+#   06:30 CST 「今日开工」 -> 22:20 UTC day before   schedules can run late)
+#
+# No --date is passed: render.py derives it from the current Asia/Shanghai date,
+# and `evening` plans tomorrow. That keeps the two jobs identical apart from the
+# slot, so there is no date arithmetic to get wrong in YAML.
+
+on:
+  schedule:
+    - cron: "20 13 * * *"   # evening, plans tomorrow
+    - cron: "20 22 * * *"   # morning, plans today
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: which card to send
+        type: choice
+        options: [morning, evening]
+        default: morning
+      dry_run:
+        description: print the request instead of sending
+        type: boolean
+        default: false
+
+concurrency:
+  group: daily-brief
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install --quiet pyyaml
+
+      - name: Pick slot
+        id: slot
+        run: |
+          if [ -n "${{ inputs.slot }}" ]; then
+            echo "value=${{ inputs.slot }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "20 13 * * *" ]; then
+            echo "value=evening" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=morning" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Always print the card to the run log. When a push looks wrong, the log
+      # shows exactly what was sent without re-running anything.
+      - name: Preview
+        run: python bot/render.py --slot "${{ steps.slot.outputs.value }}" --preview
+        env:
+          REPO_BRANCH: main
+
+      - name: Send
+        if: ${{ inputs.dry_run != true }}
+        run: python bot/send.py --slot "${{ steps.slot.outputs.value }}"
+        env:
+          LARK_APP_ID: ${{ secrets.LARK_APP_ID }}
+          LARK_APP_SECRET: ${{ secrets.LARK_APP_SECRET }}
+          LARK_RECEIVE_ID: ${{ secrets.LARK_RECEIVE_ID }}
+          LARK_DOMAIN: ${{ vars.LARK_DOMAIN }}
+          REPO_BRANCH: main
+
+      - name: Dry run
+        if: ${{ inputs.dry_run == true }}
+        run: python bot/send.py --slot "${{ steps.slot.outputs.value }}" --dry-run
+        env:
+          LARK_DOMAIN: ${{ vars.LARK_DOMAIN }}
+          REPO_BRANCH: main
