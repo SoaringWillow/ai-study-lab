@@ -4,7 +4,7 @@
 
 | # | 项目 | 周期 | 成本 | 交付物 | 状态 |
 |---|---|---|---|---|---|
-| **P0** | **工具链**：把 3 个别人的仓库跑起来（LeRobot quickstart / micrograd / 一个 MuJoCo demo），每次踩坑记进 `P0-toolchain/踩坑日志.md` | 2 周 | ¥0 | 踩坑日志（错误 → 原因 → 解法）+「2 小时跑通陌生仓库」自测记录 | ☐ |
+| **[P0](./P0-toolchain/)** | **工具链**：把 3 个别人的仓库跑起来（micrograd → 一个 MuJoCo demo → LeRobot quickstart，顺序见 [P0 README](./P0-toolchain/README.md)），每次踩坑记进 [`P0-toolchain/踩坑日志.md`](./P0-toolchain/踩坑日志.md) | 2 周 | ¥0 | 踩坑日志（错误 → 原因 → 解法）+「2 小时跑通陌生仓库」自测记录 | **进行中**（2026-09-02 开） |
 | P1 | MuJoCo + mujoco_menagerie：机械臂 IK + 轨迹跑通，搞懂 timestep / 接触 / 求解器 | 2 周 | ¥0 | notebook + 「仿真到底在算什么」笔记 | ☐ |
 | P2 | LeRobot 上复现 ACT 与 Diffusion Policy（公开数据集），对齐论文指标。**三级台阶**：① **读** —— 找到 ACT 的 `forward`，手画数据从 dataloader 到 loss 的形状变化图；② **改** —— 只改一个东西（chunk size / 相机数 / episode 数），跑，看曲线怎么变；③ **修** —— 故意改错一个形状，读 traceback，自己修回来，做 3 次 | 3 周 | GPU 按小时租 | 复现报告 + 失效模式对照表 + 那张形状变化图 | ☐ |
 | P3 | 真机：SO-101 一对自采数据 → 训练 → 20 trial 真机评测 | 4 周 | $150–500 | 视频 + 失败归因表 | ☐ |
