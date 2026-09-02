@@ -81,11 +81,12 @@ units:
       - res: micrograd
         span: clone → uv venv → 装依赖 → 跑 demo.ipynb，跑到看见那串下降的 loss 数字为止（时间盒 1h，到点没通就停下记录状态）
         minutes: 90
-      - res: p0-log
-        span: 把今天每一个坑记进日志：报错最后一行原文 / 自读时长 / 真实原因 / 解法 / 下次怎么更快认出它
-        minutes: 30
+      - res: p0-readme
+        span: 对着 P0 README 的「什么算跑通」核一遍：你看见的那串数字算不算「出了第一个数字」
+        minutes: 10
     output:
       file: experiments/P0-toolchain/踩坑日志.md
+      minutes: 30
       ask: 今天最贵的那个坑属于哪一层（环境隔离 / 系统依赖 / 数据 / 显存 / 代码本身）？跑通了但日志是空的，这天不算完成。
     fallback: 只做到 clone + 建好 venv，把卡住的地方记进日志。
 

@@ -149,3 +149,56 @@ owner 自陈：**C 类 —— 定方向和标准、Claude 落地、读 diff 和 
 3. 写 `notes/2026-09-02.md` 第一条（三段：我原以为 / 现在知道 / 还不懂）。
 4. 填 `predictions/2026Q3.md` 的 5 条并封存 —— 记得至少 1 条是「希望它是错的」。
 5. 把每天 90 分钟锁进日历；下单 SO-101 一对（Phase 1 第 9 周要用，即 10-28）。
+
+### 追加 · 每日 Lark 简报机器人
+
+owner 追问：能不能每天在 Lark 上把「今日安排 + 资源」推过来，无痛直接开始；以及这套提示是不是活在 Lark 里更稳。
+
+**架构判断（回答「活在 Lark 里更稳吗」）**：一半对。**推送和回执该在 Lark**（无痛 = 零跳转），**课程表本体不该** —— 它要被反复重排（多维表格的自动化没有判断力）、要用 `git log` 记住「当时为什么砍这一讲」、不能随一个群或应用的停用而消失。所以：**仓库当编译器，Lark 当运行时。**
+
+**这次会话踩到的三个真实边界**（都实测过，不是猜的）
+
+| 边界 | 实测结果 |
+|---|---|
+| Claude 侧有没有 Lark 连接器 | **没有**。账号已装的是 Canva/Gmail/Google Calendar/Drive/Notion/Slack/robinhood；MCP 目录搜 lark、feishu、bitable 只返回 Slack |
+| 这个会话在哪台机器 | **云端 Linux 容器**（`hostname: vm`），不是 owner 的 Mac —— 连 `/Users` 目录都没有，所以 `~/Documents/WorldEngine Claude folder` 里的东西够不到；`~/.claude.json` 的 `mcpServers` 为空 |
+| 能不能从这里发 Lark | **不能**。`open.larksuite.com` 与 `open.feishu.cn` 在 CONNECT 层就 403（装 CLI 也没用）。arxiv.org、docs.astral.sh、pytorch.org 同样被封 —— 所以第一次真发必须在 owner 本机 |
+
+**建的东西**
+
+| 文件 | 作用 |
+|---|---|
+| `schedule/curriculum.yaml` | 真相源。W1 六个单元，每个精确到集数/章节 + 三段时间盒 + 产出文件 + 降级版 |
+| `schedule/resources.yaml` | 资源库 id → {标题, url}，链接失效只改一处 |
+| `schedule/state.yaml` | 运行时状态：`last_output_date` + 每日日志 |
+| `bot/render.py` | yaml → 卡片（纯函数，不联网）。含 `--check-all` 全量 lint |
+| `bot/send.py` | stdlib urllib 发送，`--dry-run` 脱敏打印请求体 |
+| `bot/ingest.py` | daily-log issues + `notes/*.md` → 重建 state.yaml |
+| `.github/workflows/daily-brief.yml` | cron ×2（21:20 / 06:20 北京，留 10 分钟吸收 Actions 延迟）+ 手动触发 |
+| `.github/workflows/weekly-replan.yml` | 周日 21:00：ingest → 周报卡 → replan issue |
+| `.github/ISSUE_TEMPLATE/daily-log.yml` | 回执表单，含「卡在哪一层」六选 |
+
+**三个刻意的设计决定**
+
+1. **卡片上没有纯打勾的「完成」按钮。** 三个按钮（交产出 / 卡住了 / 20 分钟版）全部通向一个要写一行字的预填 issue。理由：`PLAN.md` §11 反模式第一条是「只看视频不敲键盘」，而提醒机器人最容易退化成「已读即完成」—— 连点 30 天卡片、感觉良好、什么都没学会。**回执必须是 artifact，不是一个勾。**
+2. **债务规则交给机器执行**，不靠意志力：断 1–2 天只标「不补课，直接继续」；断 ≥3 天卡片**自动切成 30 分钟降级版**。「先把落下的补回来」这个选项在系统里根本不存在。20 分钟版**不算断链** —— 链条不断比进度重要。
+3. **W1 刻意偏离周节奏**：起算日恰好是周三，而周三本该是论文日 —— 那样计划的第一个 90 分钟就是硬读 ACT/ALOHA，此时既没有 transformer 也没有形状思维，只会读成名词背诵。所以 W1 周三换成 ENGINEERING.md，论文日挪到周二。W2 起恢复标准节奏。
+
+**先渲染后接推送，因此在写代码阶段抓到 4 个 bug**（不是上线后才发现）
+
+| bug | 后果 |
+|---|---|
+| 债务规则拿目标日期当上界 | 把**还没到的日子**算成断链，晚上那张卡会指控你欠它明天 |
+| 本地路径直接当按钮 url | `./ENGINEERING.md` 在手机上点了打不开 —— 「无痛」直接不成立。改成 GitHub blob 链接 |
+| 同一资源出现两个相同按钮 | 两个 deep 项引同一文件时 |
+| `issue.get("pull_request")` 判 PR | **空 dict 是 falsy**，PR 会被当成学习日记入 |
+
+另外 arXiv 编号（ACT 2304.13705 / Diffusion Policy 2303.04137 / OpenVLA 2406.09246）逐个核对过；3B1B 找到**B 站官方双语合集 `BV1ys411472E`**，比 YouTube 链接对国内可靠。`resources.yaml` 里 4 个封了域名验不了的链接标了 `unverified:`，`--check-all` 会列出来提醒。
+
+**待办**
+
+1. **owner 先看 W1 六张卡的粒度** —— 确认后 Claude 补完 W2–W8 的 42 个单元（现在只有 W1）。粒度不对现在改比第 5 周改便宜。
+2. owner 在 Mac 上跑一次真发（`bot/send.py --slot morning`），看 `code: 0` + **手机上卡片的实际排版**（这一步只有真机能验）。
+3. GitHub 配 secrets `LARK_APP_ID` / `LARK_APP_SECRET` / `LARK_RECEIVE_ID` + variable `LARK_DOMAIN`，手动跑一次 workflow，再开 cron。
+
+**推送通不通，不该成为 9 月 2 日不开工的理由** —— `--preview` 出来的文本可以直接抄进 Lark 自己发给自己。

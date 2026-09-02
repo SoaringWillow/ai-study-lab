@@ -207,12 +207,13 @@ def _body_lines(ctx: dict) -> list[str]:
             f"产出仍然要交：`{ctx['output_file']}`",
         ]
     total = sum(i["minutes"] for i in unit["deep"])
+    out_min = unit["output"].get("minutes", 20)
     lines = [f"**回忆 10′** {ctx['recall']}", f"**深工作 {total}′**"]
     lines += [
         f"　{n}. {ctx['resources'][i['res']]['title']} —— {i['span']}（{i['minutes']}′）"
         for n, i in enumerate(unit["deep"], 1)
     ]
-    lines += [f"**输出 20′** 写进 `{ctx['output_file']}`", f"　要回答：{ctx['ask']}"]
+    lines += [f"**输出 {out_min}′** 写进 `{ctx['output_file']}`", f"　要回答：{ctx['ask']}"]
     return lines
 
 
@@ -273,7 +274,8 @@ def as_card(ctx: dict) -> dict:
     elif ctx["broken"]:
         elements.append(_md(f"欠 {ctx['broken']} 天 · 按债务规则**不补课**，直接继续"))
 
-    total = 30 if ctx["degraded"] else sum(i["minutes"] for i in u["deep"]) + 30
+    total = (30 if ctx["degraded"] else
+             sum(i["minutes"] for i in u["deep"]) + 10 + u["output"].get("minutes", 20))
     elements += [
         _md(f"**{u['topic']}**\n`W{ctx['week']} D{ctx['day']} · {u['kind']} · ⏱ {total} min`"),
         {"tag": "hr"},
