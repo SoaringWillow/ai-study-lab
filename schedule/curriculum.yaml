@@ -1,39 +1,40 @@
 # 课程表：PLAN.md 编译成 90 分钟单元。这是真相源。
 #
-# 起算日 2026-09-02（周三），周次按起算日对齐：W1 = 09-02 至 09-08，之后每 7 天进一周。
+# 起算日 2026-09-28（周一），周次按起算日对齐：W1 = 09-28 至 10-04，之后每 7 天进一周。
 # `day` 是 ISO 星期（1=周一 … 7=周日）。周日不排单元，render.py 出复盘卡。
 #
 # 每周节奏按 PLAN.md §7：一/二/四 课程主线 · 三 论文日 · 五 市场日 · 六 动手日 · 日 复盘。
+# 周一起算之后这个节奏直接成立，不再需要 09-02 那版里「周三换课程主线」的特例。
 #
-# ┌─ W1 的一处刻意偏离 ────────────────────────────────────────────────┐
-# │ 起算日恰好是周三，而周三本该是论文日 —— 那样整个计划的第一个 90     │
-# │ 分钟就是硬读 ACT/ALOHA，此时既没有 transformer 也没有形状思维，       │
-# │ 只会读成名词背诵。所以 W1 把周三换成课程主线（ENGINEERING.md），      │
-# │ 论文日挪到周二（09-08，本周最后一天）。W2 起恢复标准节奏。           │
-# └──────────────────────────────────────────────────────────────────┘
+# W1 的周四至周六落在国庆假期（10-01～10-03）。不为此推迟 —— 出不来就用 fallback，
+# 链条不断比进度重要。
 #
 # 字段：
 #   recall   0–10 分钟主动回忆的具体内容。留空则由 render.py 自动取上一单元的
 #            output.ask —— 你不用自己想「上次学了啥」。
 #   deep     10–70 分钟深工作。每项 {res, span, minutes}，span 精确到集数/章节。
 #   output   70–90 分钟的产出。file 支持 {date} 占位；ask 是当天 issue 里要回答
-#            的那一句，也是唯一能关闭这一天的东西。
+#            的那一句，也是唯一能关闭这一天的东西。minutes 可选，默认 20。
 #   fallback 低能量日/断链 ≥3 天时的 20–30 分钟降级版（PLAN.md §7）。
+#   handbook 对应 docs/mac-handbook 的章节。所有「怎么在 Mac 上真的敲」都在那里。
 
 units:
-  # ── W1 · 2026-09-02 ~ 09-08 ────────────────────────────────────────
+  # ── W1 · 2026-09-28 ~ 10-04 ────────────────────────────────────────
+  # 前提：第 0 周（09-24~09-27）已按手册第 1–2 章把环境装好。没装完就先补装，
+  # 别占用 W1 的学习时间 —— 装机不是学习。
 
   - week: 1
-    day: 3            # 周三 09-02 —— 计划的第一天（见上方偏离说明）
+    day: 1            # 周一 09-28 —— 计划的第一天
     kind: 课程主线
     topic: 工程手感（一）：跑起陌生仓库 + 读 traceback 的 60 秒规则
+    handbook: 第 2 章（装地基）· 第 8 章（卡住了怎么办）
     recall: 今天是第一天，没有上次。用 2 分钟写下你现在对「读→跑→改」三个动词里哪个最弱的判断，8 周后回来对照。
     deep:
       - res: engineering
         span: 第一节「把陌生仓库跑起来」+ 第二节「读 traceback：60 秒规则」
         minutes: 25
       - res: engineering
-        span: 照第一节那套命令，在本机建一个空 venv 走一遍（uv venv → activate → uv pip install -e .，故意在没有 pyproject.toml 的空目录里跑，看它怎么报错）
+        span: 照第一节那套命令，在一个空目录里走一遍（uv venv --python 3.12 → activate → uv pip install -e .），故意在没有 pyproject.toml 的地方跑，看它怎么报错
         minutes: 35
     output:
       file: notes/{date}.md
@@ -41,9 +42,10 @@ units:
     fallback: 只读 ENGINEERING.md 第一、二节，写两句。
 
   - week: 1
-    day: 4            # 周四 09-03
+    day: 2            # 周二 09-29
     kind: 课程主线
     topic: 形状思维 + 线代第一口：向量与张成的空间
+    handbook: 第 3 章（micrograd）里的「形状怎么看」
     deep:
       - res: 3b1b-linalg
         span: 第 1 集「向量究竟是什么？」+ 第 2 集「线性组合、张成的空间与基」
@@ -57,9 +59,44 @@ units:
     fallback: 只看第 1 集 + 默写那张形状表。
 
   - week: 1
-    day: 5            # 周五 09-04
+    day: 3            # 周三 09-30 —— 论文日
+    kind: 论文日
+    topic: 论文 1：ACT / ALOHA —— action chunking 的原始出处
+    handbook: 无需命令行
+    deep:
+      - res: paper-act
+        span: 读全文；重点是动作表征那一节（为什么一次输出一整段动作，而不是一步一步预测）
+        minutes: 60
+    output:
+      file: papers/act-aloha.md
+      ask: 5 问全部填满。第 5 问「如果这个结论是真的，谁的生意会变？」不许跳过 —— 那是市场敏锐度的日常训练。
+    fallback: 只读 abstract + intro，填第 1 问和第 5 问。
+
+  - week: 1
+    day: 4            # 周四 10-01（国庆）
+    kind: 课程主线
+    topic: 工程手感（二）：故意造 bug 练读报错 + AI 结对的边界
+    handbook: 第 8 章（卡住了怎么办）
+    deep:
+      - res: engineering
+        span: 第四节「故意制造 bug」+ 第五节「租 GPU」+ 第六节「AI 结对边界」+ 第七节「明确不学」
+        minutes: 20
+      - res: 3b1b-linalg
+        span: 第 3 集「线性变换与矩阵」
+        minutes: 11
+      - res: engineering
+        span: 照第四节写一个 10 行的 numpy 小脚本（造两个矩阵相乘），然后故意把其中一个的形状改错、跑、只用自己的眼睛读 traceback 定位并修回来。做 3 次，每次换一种错法
+        minutes: 29
+    output:
+      file: notes/{date}.md
+      ask: 三次里最难定位的那次，traceback 最后一行原文是什么？你是从哪一行找到自己的文件的？
+    fallback: 只读第四节 + 造一个 bug 读报错。
+
+  - week: 1
+    day: 5            # 周五 10-02（国庆）—— 市场日
     kind: 市场日
     topic: 开预测日志：写满第 0 期的 5 条并封存
+    handbook: 无需命令行
     deep:
       - res: predictions-q3
         span: 先读「一条合格的预测有四个条件」+ 好坏写法对照 + 题材信息量排序
@@ -73,13 +110,14 @@ units:
     fallback: 先写 2 条，剩下 3 条挪到明天。
 
   - week: 1
-    day: 6            # 周六 09-05 —— 动手日，长块 2–4h
+    day: 6            # 周六 10-03（国庆）—— 动手日，长块 2–4h
     kind: 动手日
     topic: P0 仓库 1：micrograd 跑到看见 loss 下降
+    handbook: 第 3 章（仓库一：micrograd），命令、预期输出、报错对照表都在那
     long_block: true
     deep:
       - res: micrograd
-        span: clone → uv venv → 装依赖 → 跑 demo.ipynb，跑到看见那串下降的 loss 数字为止（时间盒 1h，到点没通就停下记录状态）
+        span: 照手册第 3 章：clone → uv venv --python 3.12 → editable install → 跑 demo，跑到看见那串下降的 loss 数字为止（时间盒 1h，到点没通就停下记录状态）
         minutes: 90
       - res: p0-readme
         span: 对着 P0 README 的「什么算跑通」核一遍：你看见的那串数字算不算「出了第一个数字」
@@ -89,35 +127,3 @@ units:
       minutes: 30
       ask: 今天最贵的那个坑属于哪一层（环境隔离 / 系统依赖 / 数据 / 显存 / 代码本身）？跑通了但日志是空的，这天不算完成。
     fallback: 只做到 clone + 建好 venv，把卡住的地方记进日志。
-
-  - week: 1
-    day: 1            # 周一 09-07
-    kind: 课程主线
-    topic: 工程手感（二）：故意造 bug + AI 结对的边界
-    deep:
-      - res: engineering
-        span: 第四节「故意制造 bug」+ 第五节「租 GPU」+ 第六节「AI 结对边界」+ 第七节「明确不学」
-        minutes: 20
-      - res: 3b1b-linalg
-        span: 第 3 集「线性变换与矩阵」
-        minutes: 11
-      - res: micrograd
-        span: 在周六跑通的 micrograd 里故意改错一处（把一个维度或一个变量名弄错），跑，只用自己的眼睛读 traceback 定位并修回来
-        minutes: 29
-    output:
-      file: notes/{date}.md
-      ask: 你造的那个 bug，traceback 最后一行原文是什么？你是从哪一行定位到的 —— 是你自己的文件，还是 site-packages 里面？
-    fallback: 只读第四节 + 造一个 bug 读报错。
-
-  - week: 1
-    day: 2            # 周二 09-08 —— 本周的论文日（见上方偏离说明）
-    kind: 论文日
-    topic: 论文 1：ACT / ALOHA —— action chunking 的原始出处
-    deep:
-      - res: paper-act
-        span: 读全文；重点是动作表征那一节（为什么一次输出一整段动作，而不是一步一步预测）
-        minutes: 60
-    output:
-      file: papers/act-aloha.md
-      ask: 5 问全部填满。第 5 问「如果这个结论是真的，谁的生意会变？」不许跳过 —— 那是市场敏锐度的日常训练。
-    fallback: 只读 abstract + intro，填第 1 问和第 5 问。

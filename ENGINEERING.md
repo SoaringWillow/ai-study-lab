@@ -12,12 +12,14 @@
 ```bash
 # 1. 确认 Python 版本：看 README 的 install 段 + pyproject.toml / requirements.txt
 # 2. 建隔离环境（uv 是现在的事实标准，比 conda 省事得多）
-uv venv --python 3.11
+uv venv --python 3.12
 source .venv/bin/activate
 # 3. 研究仓库几乎都要 editable install
 uv pip install -e .
 # 4. 先跑 README 里最小的那个命令 —— 别一上来就跑 full training
 ```
+
+> **为什么钉 3.12**：LeRobot 0.6 起要求 Python ≥ 3.12（MuJoCo 3.10–3.15 都行）。全程用同一个版本，少一整类「装到一半说版本不合」的坑。
 
 **每次踩坑都记进 `experiments/P0-toolchain/踩坑日志.md`**：错误信息 → 真实原因 → 解法。第二次遇到就是查表，不是重新受苦。这份日志是 P0 唯一的交付物，也是你未来带团队时最值钱的东西之一。
 

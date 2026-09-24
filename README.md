@@ -12,6 +12,7 @@
 | **[PLAN.md](./PLAN.md)** | 主计划：目标校准、战场选择、能力树 L0–L6、四阶段路线图、课程与论文清单、每日节奏、项目阶梯、能力验证阶梯 |
 | **[ENGINEERING.md](./ENGINEERING.md)** | 工程手感速查：跑起陌生仓库、读 traceback 的 60 秒规则、张量形状思维、租 GPU 工作流、AI 结对的边界 |
 | [site/embodied-ai-plan.html](./site/embodied-ai-plan.html) | 同一份计划的网页版（已发布为 Artifact，见 SESSIONS.md 里的链接） |
+| **[docs/mac-handbook/](./docs/mac-handbook/)** | **Mac mini 上手手册**（[PDF](./docs/mac-handbook/Mac-mini-handbook.pdf)，31 页）：从开终端到租 GPU 跑训练，每步都写「敲什么 / 应该看到什么 / 没看到怎么办」。计划和键盘之间缺的那一层 |
 | **[schedule/README.md](./schedule/README.md)** | 每日简报机器人：把 PLAN 编译成 90 分钟单元，每天两次推到 Lark。本机接手看 [schedule/HANDOFF.md](./schedule/HANDOFF.md) |
 | [SESSIONS.md](./SESSIONS.md) | 会话日志：每次和 Claude 的工作留下的决策与依据 |
 | [CLAUDE.md](./CLAUDE.md) | 给未来 Claude 会话的上下文（背景、战略、写作约定） |
@@ -36,12 +37,13 @@ experiments/   P1–P5 动手项目的进展与结果
 
 ## 当前状态
 
-**起算日 2026-09-02。** 周次与日期的完整对应见 [PLAN.md 第 4 节](./PLAN.md#4-12-个月路线图)。
+**起算日 2026-09-28（周一）。** 周次与日期的完整对应见 [PLAN.md 第 4 节](./PLAN.md#4-12-个月路线图)。
 
 - [x] 计划成型（2026-08）
-- [ ] **Phase 0 · 第 1–8 周（2026-09-02 → 10-27）**「能读 + 能跑起来」—— 工程手感 + 数学地板 + 刚体运动 + 手写 transformer
-  - [ ] [P0 工具链](./experiments/P0-toolchain/) 进行中 —— 交付物是[踩坑日志](./experiments/P0-toolchain/踩坑日志.md)，不是「跑通了」
-  - [ ] L0 表达关（10-13）· L0.5 工程关（10-27）
-- [ ] Phase 1 · 第 9–20 周（2026-10-28 → 2027-01-19）「能跑 + 能改」
-- [ ] Phase 2 · 第 21–36 周（2027-01-20 → 05-11）「能测」
-- [ ] Phase 3 · 第 37–54 周（2027-05-12 → 09-14）「能定标准」
+- [ ] **第 0 周 · 装机（2026-09-24 → 09-27）** —— 照 [Mac 上手手册](./docs/mac-handbook/) 第 1–2 章把环境搭好。环境配置不是学习日，别让它吃掉 W1。
+- [ ] **Phase 0 · 第 1–8 周（2026-09-28 → 11-22）**「能读 + 能跑起来」—— 工程手感 + 数学地板 + 刚体运动 + 手写 transformer
+  - [ ] [P0 工具链](./experiments/P0-toolchain/) —— 交付物是[踩坑日志](./experiments/P0-toolchain/踩坑日志.md)，不是「跑通了」
+  - [ ] L0 表达关（11-08）· L0.5 工程关（11-22）
+- [ ] Phase 1 · 第 9–20 周（2026-11-23 → 2027-02-14）「能跑 + 能改」
+- [ ] Phase 2 · 第 21–36 周（2027-02-15 → 06-06）「能测」
+- [ ] Phase 3 · 第 37–54 周（2027-06-07 → 10-10）「能定标准」

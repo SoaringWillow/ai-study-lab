@@ -214,6 +214,8 @@ def _body_lines(ctx: dict) -> list[str]:
         for n, i in enumerate(unit["deep"], 1)
     ]
     lines += [f"**输出 {out_min}′** 写进 `{ctx['output_file']}`", f"　要回答：{ctx['ask']}"]
+    if hb := unit.get("handbook"):
+        lines.append(f"_手册：{hb}_")
     return lines
 
 
@@ -403,20 +405,21 @@ def _check_debt_rule(curriculum: dict, start: dt.date) -> list[str]:
 
     Cases: (last_output_date, target date, today) -> expected broken days.
     """
+    # Dates are tied to the start date in state.yaml (2026-09-28, Monday), so
+    # these move whenever the start date does — which is the point: a stale
+    # calendar should fail loudly rather than silently mis-count debt.
     d = dt.date.fromisoformat
     cases = [
         # first day, nothing logged yet: no debt, and no accusation
-        (None, "2026-09-02", "2026-09-02", 0),
+        (None, "2026-09-28", "2026-09-28", 0),
         # planning tomorrow on day one: tomorrow has not happened -> still 0
-        (None, "2026-09-03", "2026-09-02", 0),
+        (None, "2026-09-29", "2026-09-28", 0),
         # logged yesterday, nothing owed
-        ("2026-09-04", "2026-09-05", "2026-09-05", 0),
-        # logged on day one, then went quiet: 09-03/04 missed (09-06 is a Sunday,
-        # not a scheduled day, so it must not be counted)
-        ("2026-09-02", "2026-09-05", "2026-09-05", 2),
-        ("2026-09-02", "2026-09-08", "2026-09-08", 4),
-        # never logged at all through the whole first week
-        (None, "2026-09-08", "2026-09-08", 5),
+        ("2026-09-30", "2026-10-01", "2026-10-01", 0),
+        # logged on day one, then went quiet: 09-29 and 09-30 missed
+        ("2026-09-28", "2026-10-01", "2026-10-01", 2),
+        # never logged all week; Sunday 10-04 has no unit and must not count
+        (None, "2026-10-05", "2026-10-05", 6),
     ]
     problems = []
     for last, date, today, expected in cases:

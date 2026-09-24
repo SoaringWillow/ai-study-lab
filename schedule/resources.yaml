@@ -11,6 +11,12 @@ engineering:
   kind: local
   note: 7 节。第 1 节是跑起陌生仓库的固定套路，第 2 节是 60 秒规则。
 
+handbook:
+  title: Mac mini 上手手册
+  url: ./docs/mac-handbook/
+  kind: local
+  note: 从开终端到租 GPU 跑训练，每步都有「敲什么 / 应该看到什么 / 没看到怎么办」。curriculum 里各单元的 handbook 字段指向它的章节。
+
 3b1b-linalg:
   title: 3Blue1Brown 线性代数的本质
   url: https://www.bilibili.com/video/BV1ys411472E/

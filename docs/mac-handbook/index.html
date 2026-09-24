@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Mac mini 上手手册 · 具身智能学习计划</title>
+<style>
+  /* CJK 优先 WenQuanYi，代码用 DejaVu Sans Mono（中文回落到 WenQuanYi 等宽） */
+  :root{
+    --ink:#16191c; --soft:#4d565e; --faint:#828d96;
+    --rule:#d8dee3; --bg:#fff; --surface:#f6f8f9;
+    --accent:#0e6a5a; --accent-bg:#e3efeb;
+    --warn:#a8412a; --warn-bg:#f8eae6;
+    --sans:"WenQuanYi Zen Hei","Noto Sans CJK SC",sans-serif;
+    --mono:"DejaVu Sans Mono","WenQuanYi Zen Hei Mono",monospace;
+  }
+  @page{ size:A4; margin:18mm 16mm 16mm 16mm; }
+  *{box-sizing:border-box}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--bg);
+    font-size:10.5pt; line-height:1.75; margin:0;
+  }
+  h1,h2,h3,h4{line-height:1.3; margin:0}
+  h1{font-size:23pt; letter-spacing:.01em}
+  h2{
+    font-size:16pt; margin:0 0 4mm; padding-bottom:2mm;
+    border-bottom:2px solid var(--ink); page-break-after:avoid;
+  }
+  h3{font-size:12.5pt; margin:7mm 0 2mm; page-break-after:avoid}
+  h4{font-size:10.5pt; margin:5mm 0 1.5mm; color:var(--soft); page-break-after:avoid}
+  p,li{margin:0 0 2.5mm}
+  ul,ol{padding-left:6mm; margin:0 0 3mm}
+  li{margin-bottom:1.2mm}
+  code{font-family:var(--mono); font-size:9pt; background:var(--surface);
+       padding:.5mm 1mm; border-radius:1mm; border:1px solid var(--rule)}
+  strong{font-weight:bold}
+  a{color:var(--accent); text-decoration:none}
+
+  .chapter{page-break-before:always}
+  .chapter:first-of-type{page-break-before:avoid}
+
+  /* 三段式：敲什么 / 应该看到 / 没看到怎么办 */
+  .step{margin:4mm 0; page-break-inside:avoid}
+  .step-n{
+    font-family:var(--mono); font-size:8.5pt; color:var(--accent);
+    letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:1.5mm;
+  }
+  pre{
+    font-family:var(--mono); font-size:8.8pt; line-height:1.6;
+    background:#11161a; color:#e6edf3; padding:3mm 4mm; border-radius:1.5mm;
+    margin:1.5mm 0; white-space:pre-wrap; word-break:break-all;
+    page-break-inside:avoid;
+  }
+  pre.out{background:var(--surface); color:var(--soft); border:1px solid var(--rule)}
+  pre .c{color:#7d8a95}          /* 注释 */
+  pre .p{color:#6fd3b8}          /* 提示符 */
+
+  .expect, .fix{
+    border-left:3px solid var(--accent); background:var(--accent-bg);
+    padding:2.5mm 3.5mm; margin:1.5mm 0; page-break-inside:avoid;
+  }
+  .fix{border-left-color:var(--warn); background:var(--warn-bg)}
+  .expect .lbl, .fix .lbl{
+    font-family:var(--mono); font-size:8pt; letter-spacing:.1em;
+    text-transform:uppercase; display:block; margin-bottom:1mm; color:var(--accent);
+  }
+  .fix .lbl{color:var(--warn)}
+  .expect p, .fix p{margin:0}
+
+  .note{
+    border:1px solid var(--rule); background:var(--surface);
+    padding:3mm 4mm; margin:3.5mm 0; border-left:3px solid var(--faint);
+    page-break-inside:avoid;
+  }
+  .note .lbl{
+    font-family:var(--mono); font-size:8pt; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--faint); display:block; margin-bottom:1.5mm;
+  }
+  .note p:last-child{margin-bottom:0}
+
+  table{border-collapse:collapse; width:100%; font-size:9.3pt; margin:3mm 0;
+        page-break-inside:avoid}
+  th,td{border:1px solid var(--rule); padding:2mm 2.5mm; text-align:left;
+        vertical-align:top; line-height:1.6}
+  th{background:var(--surface); font-weight:bold; font-size:8.8pt}
+  td code{font-size:8.5pt}
+
+  .unverified{
+    display:inline-block; font-family:var(--mono); font-size:7.5pt;
+    background:var(--warn-bg); color:var(--warn); border:1px solid var(--warn);
+    padding:.3mm 1.2mm; border-radius:1mm; margin-left:1.5mm; vertical-align:2px;
+  }
+  .verified{
+    display:inline-block; font-family:var(--mono); font-size:7.5pt;
+    background:var(--accent-bg); color:var(--accent); border:1px solid var(--accent);
+    padding:.3mm 1.2mm; border-radius:1mm; margin-left:1.5mm; vertical-align:2px;
+  }
+
+  /* 封面 */
+  .cover{height:252mm; display:flex; flex-direction:column; justify-content:center;
+         page-break-after:always}
+  .cover .kicker{font-family:var(--mono); font-size:9pt; letter-spacing:.16em;
+                 text-transform:uppercase; color:var(--faint)}
+  .cover h1{margin:5mm 0 0; font-size:30pt}
+  .cover .sub{font-size:12pt; color:var(--soft); margin-top:4mm; max-width:120mm; line-height:1.8}
+  .cover .meta{margin-top:14mm; padding-top:4mm; border-top:1px solid var(--rule);
+               font-family:var(--mono); font-size:9pt; color:var(--faint); line-height:2}
+
+  /* 目录 */
+  .toc{page-break-after:always}
+  .toc ol{list-style:none; padding:0; counter-reset:ch}
+  .toc li{border-bottom:1px dotted var(--rule); padding:2mm 0; margin:0}
+  .toc .num{font-family:var(--mono); color:var(--accent); margin-right:3mm}
+  .toc .sub{color:var(--faint); font-size:9pt; display:block; margin-left:12mm}
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="kicker">ai-study-lab · 第 0 周装机 → P0 / P1 / P2</div>
+  <h1>Mac mini 上手手册</h1>
+  <p class="sub">从打开终端，到在租来的 GPU 上跑完一次 ACT 训练。<br>
+  每一步都写清楚：敲什么、应该看到什么、没看到怎么办。</p>
+  <div class="meta">
+    目标机器　Mac mini M4 / 16GB 统一内存<br>
+    配套　PLAN.md 第 0 周（2026-09-24 ～ 09-27）· Phase 0 起于 2026-09-28<br>
+    版本　第一版 · 2026-09-24
+  </div>
+</section>
+
+<section class="toc">
+  <h2>目录</h2>
+  <ol>
+    <li><span class="num">00</span>这份文档怎么用<span class="sub">三段式、时间盒纪律、60 秒规则</span></li>
+    <li><span class="num">01</span>先认识你的机器<span class="sub">开终端 · 五个动作 · 自检三条命令 · 能做什么不能做什么</span></li>
+    <li><span class="num">02</span>装地基<span class="sub">Xcode CLT · Homebrew · uv · Python 3.12</span></li>
+    <li><span class="num">03</span>仓库一：micrograd<span class="sub">考环境隔离 · 时间盒 1h</span></li>
+    <li><span class="num">04</span>仓库二：MuJoCo<span class="sub">考系统依赖与渲染 · 时间盒 2h</span></li>
+    <li><span class="num">05</span>仓库三：LeRobot<span class="sub">考研究仓库全套 · 时间盒 4h</span></li>
+    <li><span class="num">06</span>P1：MuJoCo 机械臂 IK<span class="sub">2 周 · 全程本地免费</span></li>
+    <li><span class="num">07</span>P2：租 GPU 跑真训练<span class="sub">3 周 · 本地做什么、云上做什么</span></li>
+    <li><span class="num">08</span>卡住了怎么办<span class="sub">60 秒规则的操作版 · 高频报错对照表</span></li>
+    <li><span class="num">09</span>命令速查卡<span class="sub">一页，可单独打印</span></li>
+  </ol>
+</section>
+
+<!-- ══════════════════ 第 0 章 ══════════════════ -->
+<section class="chapter">
+<h2>00 · 这份文档怎么用</h2>
+
+<p>这份手册解决的是一个很具体的问题：<strong>你知道今天该跑 micrograd，但不知道第一条命令敲什么。</strong></p>
+
+<p>学习计划（<code>PLAN.md</code>）在 9 月初就写好了，课程表、每日推送、债务规则全都齐了，然后三周过去，一条笔记都没产出。原因不是计划不好，是计划和你的键盘之间缺了一层。这份文档就是那一层。</p>
+
+<h3>每一步都是三段式</h3>
+
+<p>全书所有操作都长这个样子：</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> uname -m</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p><code>arm64</code>。这说明你在 Apple Silicon 上，全书的命令都按这个写。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>如果输出是 <code>x86_64</code>，你要么在 Intel 机器上，要么终端跑在 Rosetta 转译下。第 1 章末尾有对照处理。</p>
+  </div>
+</div>
+
+<p><strong>第二段最重要。</strong>不知道「对」长什么样，你就永远分不清「还在装」和「已经卡住了」—— 这是新手浪费整晚的头号原因。</p>
+
+<h3>两条纪律</h3>
+
+<table>
+  <tr><th style="width:32%">纪律</th><th>怎么做</th></tr>
+  <tr>
+    <td><strong>装机不是学习</strong></td>
+    <td>第 1–2 章属于「第 0 周」（09-24～09-27），在正式开课前做完。不要让配环境吃掉 W1 的学习日 —— 那会让你第一周就产生「我在学但什么都没学到」的感觉。</td>
+  </tr>
+  <tr>
+    <td><strong>60 秒规则</strong></td>
+    <td>任何报错，<strong>先自己读 60 秒再问 AI</strong>。这 60 秒练的是别人替你练不了的肌肉。第 8 章是这条规则的操作版。踩坑日志里专门有一列记这个时长，就是为了让这条规则可被自己审计。</td>
+  </tr>
+</table>
+
+<div class="note">
+  <span class="lbl">时间盒到了就停</span>
+  <p>每个仓库都标了时间盒（1h / 2h / 4h）。<strong>到点没跑通，停下来把状态记进踩坑日志，第二天接着来。</strong>不要硬扛到半夜，也不要为了「跑通」去抄一个别人的现成环境 —— 那等于把这次训练作废。卡住的过程本身就是 P0 的交付物。</p>
+</div>
+
+<h3>标记的含义</h3>
+
+<p>命令后面会有两种标记：</p>
+
+<p><span class="verified">已验证</span> 这条信息在写文档时对着官方来源或包索引核对过（比如 PyPI 上某个包的版本和 wheel 平台）。</p>
+
+<p><span class="unverified">未实测</span> 没在真机上跑过 —— 写这份文档的机器是 Linux 云容器，不是你的 Mac，而且出网受限。这类命令出自官方文档但可能已经变了。<strong>凡是和文档写的不一致，一律以你终端里的实际输出为准</strong>，并把差异记下来，第二版会修。</p>
+
+<div class="note">
+  <span class="lbl">第一版必然有要修的地方</span>
+  <p>一份没人跑过的手册不可能全对。你照着走一遍、把对不上的地方记下来，这份手册的第二版才真正有价值。这个过程本身也是 P0 在练的东西：<strong>照着别人的文档跑，然后发现文档哪里错了。</strong></p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 1 章 ══════════════════ -->
+<section class="chapter">
+<h2>01 · 先认识你的机器</h2>
+
+<h3>1.1 打开终端</h3>
+
+<p>按 <code>Command + 空格</code> 打开 Spotlight，输入 <code>Terminal</code>（或中文系统里的「终端」），回车。</p>
+
+<p>你会看到一个窗口，最后一行大概长这样：</p>
+
+<pre class="out">jiangnan@Mac-mini ~ %</pre>
+
+<p>这一行叫<strong>提示符</strong>。<code>%</code> 后面就是你敲命令的地方（zsh 用 <code>%</code>，bash 用 <code>$</code>；macOS 现在默认是 zsh）。本书里所有命令前面的 <code>$</code> 都是提示符的意思，<strong>不要把它敲进去</strong>。</p>
+
+<h3>1.2 五个动作，够用了</h3>
+
+<table>
+  <tr><th style="width:26%">动作</th><th>干什么</th></tr>
+  <tr><td><code>pwd</code></td><td>我现在在哪个文件夹。迷路了就敲它。</td></tr>
+  <tr><td><code>ls</code></td><td>这个文件夹里有什么。<code>ls -la</code> 连隐藏文件一起列。</td></tr>
+  <tr><td><code>cd 路径</code></td><td>进到某个文件夹。<code>cd ..</code> 是回上一层，<code>cd ~</code> 是回家目录。</td></tr>
+  <tr><td><strong>Tab 键</strong></td><td><strong>最重要的一个。</strong>打了一半按 Tab 自动补全。补不出来说明路径打错了 —— 这能省掉一半的「文件找不到」。</td></tr>
+  <tr><td><code>Control + C</code></td><td>强行中止当前命令。卡住了、跑飞了，按它。</td></tr>
+</table>
+
+<div class="note">
+  <span class="lbl">一个能省很多事的习惯</span>
+  <p>路径里有空格或中文时，用引号包起来：<code>cd "~/Documents/WorldEngine Claude folder"</code>。不包的话 shell 会把空格当成两个参数的分隔符，报一个看起来毫不相干的错。</p>
+</div>
+
+<h3>1.3 自检：你的机器是什么</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="c"># 芯片架构</span>
+<span class="p">$</span> uname -m
+
+<span class="c"># macOS 版本</span>
+<span class="p">$</span> sw_vers
+
+<span class="c"># 芯片型号与内存</span>
+<span class="p">$</span> system_profiler SPHardwareDataType | grep -E "Chip|Memory|Model Name"</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>依次是 <code>arm64</code>；<code>ProductVersion: 15.x</code> 之类；以及 <code>Chip: Apple M4</code> 和 <code>Memory: 16 GB</code>。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>uname -m</code> 输出 <code>x86_64</code> 但你确定是 M 系列芯片 → 终端跑在 Rosetta 下。在「访达 → 应用程序 → 实用工具」里右键 Terminal → 显示简介 → 取消勾选「使用 Rosetta 打开」，重开终端。<br>
+    <code>system_profiler</code> 那条跑得慢是正常的（要几秒）。</p>
+  </div>
+</div>
+
+<h3>1.4 M4 / 16GB 能做什么，不能做什么</h3>
+
+<p>这张表决定了后面哪一章你可以慢慢来、哪一章必须租卡。<strong>提前知道边界，比撞上去再查省一整晚。</strong></p>
+
+<table>
+  <tr><th style="width:34%">任务</th><th style="width:16%">本机</th><th>说明</th></tr>
+  <tr><td>micrograd（第 3 章）</td><td>✅ 轻松</td><td>纯 Python，没有二进制依赖，CPU 秒出。</td></tr>
+  <tr><td>MuJoCo 仿真与 IK（第 4、6 章）</td><td>✅ 轻松</td><td>官方有 arm64 wheel <span class="verified">已验证</span>。机械臂级别的仿真 M4 绰绰有余。</td></tr>
+  <tr><td>LeRobot 装环境、看数据集、读代码（第 5 章）</td><td>✅ 可以</td><td>依赖树大，装的时候要等，但能装上。</td></tr>
+  <tr><td>改超参、跑几十步看曲线动起来</td><td>⚠️ 勉强</td><td>能跑，慢。<strong>目的是看懂流程，不是出指标。</strong></td></tr>
+  <tr><td>ACT / Diffusion Policy 完整训练（第 7 章）</td><td>❌ 不要</td><td>16GB 统一内存要同时喂 CPU 和 GPU；没有 CUDA，MPS 在这类模型上支持不完整。<strong>租卡。</strong>第 7 章教你自己算要多久。</td></tr>
+</table>
+
+<div class="note">
+  <span class="lbl">为什么不直接给你一个「要跑 X 小时」的数字</span>
+  <p>因为我没在你的机器上测过，编一个数会害你按错误的预期安排时间。第 7 章给的是<strong>测量方法</strong>：本地跑 100 步计时，按比例外推。这既得到真实数字，也顺手练了估算 —— 那是研究者的日常功夫。</p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 2 章 ══════════════════ -->
+<section class="chapter">
+<h2>02 · 装地基</h2>
+
+<p><strong>一次性工作，约 40 分钟，其中大半时间在等下载。</strong>装完之后第 3–7 章都不用再碰这一章。</p>
+
+<p>要装四样东西，顺序不能换：</p>
+
+<table>
+  <tr><th style="width:24%">装什么</th><th>为什么要它</th></tr>
+  <tr><td>Xcode 命令行工具</td><td>提供编译器和 <code>git</code>。很多 Python 包装的时候要现编译一小部分，没有它就会报一堆看不懂的错。</td></tr>
+  <tr><td>Homebrew</td><td>macOS 的包管理器。装系统级软件用它。</td></tr>
+  <tr><td>uv</td><td>Python 环境和包管理。比 conda 快得多、简单得多，现在是研究仓库的事实标准。</td></tr>
+  <tr><td>Python 3.12（Homebrew 版）</td><td>全书统一用 3.12。<strong>另外第 4 章的 MuJoCo 交互式窗口需要一个 Homebrew 装的 Python</strong>，理由在那一章。</td></tr>
+</table>
+
+<h3>2.1 Xcode 命令行工具</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> xcode-select --install</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>弹出一个图形安装窗口，点「安装」，等 5–15 分钟（取决于网速）。<br>
+    如果已经装过，会直接提示 <code>command line tools are already installed</code> —— 那就是好事，跳到 2.2。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>装完验证：<code>git --version</code> 应该输出一个版本号。如果提示找不到 <code>git</code>，重开一个终端窗口再试（PATH 需要新会话才生效）。</p>
+  </div>
+</div>
+
+<h3>2.2 Homebrew</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="c"># 官方安装脚本（以 brew.sh 首页为准）</span>
+<span class="p">$</span> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre>
+  <span class="unverified">未实测</span>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>脚本会先列出它打算做什么，然后要你按回车确认，可能还要输入 Mac 登录密码（<strong>输密码时屏幕不会显示任何字符，这是正常的</strong>，敲完直接回车）。<br>
+    结束时会打印一段 <code>Next steps</code>，里面有两行 <code>echo ... >> /Users/你的用户名/.zprofile</code> 和 <code>eval ...</code>。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>装完直接敲 <code>brew --version</code> 大概率提示 <code>command not found</code> —— <strong>这是 Apple Silicon 上最常见的一个坎，不是装失败了。</strong>原因是 Homebrew 装在 <code>/opt/homebrew</code>，不在默认 PATH 里。执行上一段里那两行（或者照抄下面这两条），然后重开终端。</p>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-n">① 敲什么（接上，配置 PATH）</span>
+<pre><span class="p">$</span> echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+<span class="p">$</span> eval "$(/opt/homebrew/bin/brew shellenv)"
+<span class="p">$</span> brew --version</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p><code>Homebrew 4.x.x</code> 之类的版本号。到这里 Homebrew 就好了。</p>
+  </div>
+</div>
+
+<h3>2.3 uv 与 Python 3.12</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> brew install uv python@3.12
+<span class="p">$</span> uv --version
+<span class="p">$</span> /opt/homebrew/bin/python3.12 --version</pre>
+  <span class="verified">已验证</span>（<code>brew install uv</code> 是 Astral 官方给出的 macOS 安装方式之一）
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>两个版本号，第二个是 <code>Python 3.12.x</code>。<br>
+    装的过程会拉不少依赖，几分钟很正常。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>python3.12</code> 找不到 → 用 <code>brew --prefix python@3.12</code> 看它实际装在哪，路径可能和这里写的不同。<br>
+    下载慢或超时 → 大概率是网络问题，换个网络或稍后重试；Homebrew 的下载不走代理时经常很慢。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">为什么全书钉死 Python 3.12</span>
+  <p>LeRobot 0.6 起要求 <strong>Python ≥ 3.12</strong> <span class="verified">已验证</span>（PyPI 上 <code>requires_python</code> 写着 <code>&gt;=3.12</code>），而 MuJoCo 3.10 到 3.15 都支持。全程用同一个版本，可以少掉一整类「装到一半说版本不合」的坑。<br>
+  如果你看过本仓库的 <code>ENGINEERING.md</code> 早期版本写的是 3.11 —— 那是写在确认 LeRobot 要求之前，已经改了。</p>
+</div>
+
+<h3>2.4 一个必须理解的概念：虚拟环境</h3>
+
+<p>后面每一章开头都会建一个「虚拟环境」。花两分钟搞懂它，能省掉后面 80% 的怪问题。</p>
+
+<p><strong>问题是这样的</strong>：micrograd 可能要 A 库的 1.0 版，LeRobot 要 A 库的 2.0 版。装在一起必然打架。<strong>虚拟环境就是给每个项目一个独立的小房间</strong>，各装各的，互不影响。</p>
+
+<table>
+  <tr><th style="width:44%">命令</th><th>意思</th></tr>
+  <tr><td><code>uv venv --python 3.12</code></td><td>在当前文件夹建一个叫 <code>.venv</code> 的小房间</td></tr>
+  <tr><td><code>source .venv/bin/activate</code></td><td><strong>走进这个房间。</strong>之后提示符前面会多一个 <code>(.venv)</code></td></tr>
+  <tr><td><code>uv pip install 包名</code></td><td>把包装进当前房间</td></tr>
+  <tr><td><code>deactivate</code></td><td>走出房间</td></tr>
+</table>
+
+<div class="fix">
+  <span class="lbl">最高频的一个错</span>
+  <p>开了新终端窗口就是新会话，<strong>之前的 <code>activate</code> 不算数了</strong>。症状是「我明明装过了却说找不到模块」。<br>
+  判断方法：看提示符前面有没有 <code>(.venv)</code>。没有就重新 <code>source .venv/bin/activate</code>。这一条会在第 8 章再出现一次，因为它真的很常见。</p>
+</div>
+
+<h3>2.5 把学习仓库拉下来</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> mkdir -p ~/code && cd ~/code
+<span class="p">$</span> git clone https://github.com/SoaringWillow/ai-study-lab.git
+<span class="p">$</span> cd ai-study-lab
+<span class="p">$</span> ls</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>一串文件名：<code>PLAN.md  ENGINEERING.md  README.md  notes  papers  predictions  experiments  schedule  bot  docs</code>。<br>
+    这就是你的学习仓库，后面所有笔记、论文笔记、踩坑日志都写在这里。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">第 0 周到这里就结束了</span>
+  <p>地基装完，下面三章分别是 P0 的三个仓库。它们排在 W1 的动手日和之后 —— <strong>今天不用往下做</strong>。<br>
+  真要现在试试手，跳到第 3 章的 micrograd，它只要 1 小时，而且没有任何二进制依赖，是最安全的第一次。</p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 3 章 ══════════════════ -->
+<section class="chapter">
+<h2>03 · 仓库一：micrograd</h2>
+
+<p><strong>时间盒 1 小时。这一关考的是「环境隔离」。</strong></p>
+
+<p>为什么第一个是它：纯 Python，没有二进制依赖，不用下数据集，不碰 GPU。<strong>如果连它都卡住，问题一定在环境本身</strong>，不在别的地方 —— 这种「一次只可能错一件事」的起点，是排查能力的地基。</p>
+
+<h3>3.1 拿下来并建房间</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code
+<span class="p">$</span> git clone https://github.com/karpathy/micrograd.git
+<span class="p">$</span> cd micrograd
+<span class="p">$</span> uv venv --python 3.12
+<span class="p">$</span> source .venv/bin/activate
+<span class="p">$</span> uv pip install -e .</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p><code>uv venv</code> 后提示创建了 <code>.venv</code>；<code>activate</code> 之后<strong>提示符前面出现 <code>(micrograd)</code> 或 <code>(.venv)</code></strong>；最后一条打印 <code>Installed 1 package</code> 之类。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>uv pip install -e .</code> 报 <code>No such file or directory</code> 或找不到项目文件 → 你多半没在 <code>micrograd</code> 目录里。敲 <code>pwd</code> 确认，敲 <code>ls</code> 应该能看到 <code>setup.py</code>。<br>
+    提示符前面没有 <code>(...)</code> → <code>activate</code> 没生效，重新 <code>source .venv/bin/activate</code>。</p>
+  </div>
+</div>
+
+<h3>3.2 出第一个数字</h3>
+
+<p>不要一上来开 notebook。先用一个纯脚本确认能 import、能反向传播。</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="c"># 用 cat 写一个小脚本（整段粘贴，最后那行单独的 EOF 也要）</span>
+<span class="p">$</span> cat > smoke.py &lt;&lt;'EOF'
+from micrograd.engine import Value
+
+a = Value(-4.0)
+b = Value(2.0)
+c = a + b
+d = a * b + b**3
+c += c + 1
+c += 1 + c + (-a)
+d += d * 2 + (b + a).relu()
+d += 3 * d + (b - a).relu()
+e = c - d
+f = e**2
+g = f / 2.0
+g += 10.0 / f
+
+print("forward g =", round(g.data, 4))
+g.backward()
+print("dg/da =", round(a.grad, 4))
+print("dg/db =", round(b.grad, 4))
+EOF
+
+<span class="p">$</span> python smoke.py</pre>
+  <span class="unverified">未实测</span>（脚本取自 micrograd README 的示例）
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>三个浮点数。README 给的参考值是 <code>24.7041</code> / <code>138.8338</code> / <code>645.5773</code>。<br>
+    <strong>数字对不对是次要的，关键是三行都打印出来了</strong> —— 这说明包装对了、<code>backward()</code> 真的沿着计算图跑了一遍。<strong>这就是你的「第一个数字」。</strong></p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>ModuleNotFoundError: No module named 'micrograd'</code> → 三种可能，按这个顺序查：<br>
+    　1. 提示符前面有没有 <code>(...)</code>？没有就是环境没激活。<br>
+    　2. <code>uv pip install -e .</code> 真的跑成功了吗？重跑一次看输出。<br>
+    　3. 你是不是在别的目录？<code>pwd</code> 确认。<br>
+    <strong>注意这个错的模块名正好等于仓库名 —— 这是「忘了 editable install」的典型指纹，不要先去怀疑 Python 版本。</strong>（W1 D1 那道题问的就是这个。）</p>
+  </div>
+</div>
+
+<h3>3.3 再看 loss 真的下降</h3>
+
+<p>仓库里的 <code>demo.ipynb</code> 训练一个两层 MLP 做二分类，能看到 loss 一路降下来。它要几个额外的包。</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> uv pip install numpy matplotlib scikit-learn jupyter
+<span class="p">$</span> jupyter notebook demo.ipynb</pre>
+  <span class="unverified">未实测</span>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>浏览器自动打开一个页面。从上往下逐个单元格按 <code>Shift + Enter</code> 执行。<br>
+    训练那个单元格会打印一串 <code>step 0 loss 0.8xxx, accuracy 50%</code> 这样的行，<strong>loss 应该一路往下走、accuracy 往上走</strong>。最后画出一张决策边界图。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>跑不起来 jupyter <strong>不影响这一关通过</strong> —— 3.2 的三个数字已经达标了。把问题记进踩坑日志，往下走。<br>
+    终端要收回控制权：回到终端按 <code>Control + C</code> 两次。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">这一步真正的功课：逐行可复述</span>
+  <p>打开 <code>micrograd/engine.py</code>，找到 <code>backward()</code> 那个方法（约 20 行）。它做两件事：<strong>先拓扑排序建出计算图的倒序，再沿着倒序逐个调用每个节点的 <code>_backward</code>。</strong></p>
+  <p>合上屏幕，用自己的话复述这两步。说不出来就再读一遍。<code>CLAUDE.md</code> 的规矩是「说不出某一行在干什么，这段代码不许 commit」—— 这里是你第一次执行这条规矩。<strong>这 100 行是整个深度学习的最小可理解内核，值得读三遍。</strong></p>
+</div>
+
+<div class="note">
+  <span class="lbl">收尾</span>
+  <p>把今天每一个坑记进 <code>~/code/ai-study-lab/experiments/P0-toolchain/踩坑日志.md</code>：报错最后一行原文 / 你自己读了多久 / 真实原因 / 解法 / 下次怎么更快认出它。<br>
+  <strong>跑通了但日志是空的，这一天不算完成。</strong></p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 4 章 ══════════════════ -->
+<section class="chapter">
+<h2>04 · 仓库二：MuJoCo</h2>
+
+<p><strong>时间盒 2 小时。这一关考的是「系统依赖与渲染后端」</strong> —— 和 Python 包管理完全无关的另一类坑。</p>
+
+<p>这一章分两段：<strong>先跑无图形界面的（必通），再试交互式窗口（可选）</strong>。这个顺序是刻意的，理由在 4.3。</p>
+
+<h3>4.1 装上</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code && mkdir -p mujoco-play && cd mujoco-play
+<span class="p">$</span> uv venv --python /opt/homebrew/bin/python3.12
+<span class="p">$</span> source .venv/bin/activate
+<span class="p">$</span> uv pip install mujoco
+<span class="p">$</span> python -c "import mujoco; print(mujoco.__version__)"</pre>
+  <span class="verified">已验证</span>（PyPI 上 mujoco 3.14.0 有 <code>macosx_11_0_arm64</code> 轮子，覆盖 Python 3.10–3.15）
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>一个版本号，比如 <code>3.14.0</code>。装的时候<strong>不应该出现编译过程</strong> —— 有现成的 arm64 轮子，直接下载解压。看到大段 <code>Building wheel...</code> 说明轮子没匹配上，检查 Python 版本。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">注意这里的 venv 和第 3 章不一样</span>
+  <p>第 3 章用的是 <code>uv venv --python 3.12</code>（uv 自己下的 Python），这里指定了 <strong>Homebrew 的</strong> <code>/opt/homebrew/bin/python3.12</code>。原因在 4.3 的 <code>mjpython</code> —— 它和 uv 自带的 Python 不兼容。<strong>先这么做，理由马上说。</strong></p>
+</div>
+
+<h3>4.2 无界面：出第一个数字和第一帧图</h3>
+
+<p>不需要任何模型文件 —— 直接在代码里写一个最小场景（一个盒子从空中掉到地面）。</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cat > drop.py &lt;&lt;'EOF'
+import mujoco
+
+XML = """
+&lt;mujoco&gt;
+  &lt;worldbody&gt;
+    &lt;light pos="0 0 3"/&gt;
+    &lt;geom type="plane" size="2 2 .1"/&gt;
+    &lt;body pos="0 0 1"&gt;
+      &lt;freejoint/&gt;
+      &lt;geom type="box" size=".1 .1 .1" rgba="1 .4 .2 1"/&gt;
+    &lt;/body&gt;
+  &lt;/worldbody&gt;
+&lt;/mujoco&gt;
+"""
+
+model = mujoco.MjModel.from_xml_string(XML)
+data  = mujoco.MjData(model)
+
+print("每步仿真多少秒 timestep =", model.opt.timestep)
+print("起始高度 z =", round(float(data.qpos[2]), 4))
+
+for _ in range(200):
+    mujoco.mj_step(model, data)
+
+print("200 步之后 z =", round(float(data.qpos[2]), 4))
+print("仿真时间 =", round(data.time, 4), "秒")
+EOF
+
+<span class="p">$</span> python drop.py</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>四行输出。<code>timestep</code> 默认是 <code>0.002</code>（2 毫秒）；起始 <code>z</code> 是 1.0 左右；<strong>200 步之后 z 明显变小</strong>（盒子掉下来了，最后停在盒子半高 0.1 附近）；仿真时间 = 200 × 0.002 = <code>0.4</code> 秒。</p>
+    <p><strong>这就是这一关的「第一个数字」。</strong>盒子会掉，说明物理引擎真的在算。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>z</code> 完全没变 → 检查 <code>&lt;freejoint/&gt;</code> 有没有漏掉；没有关节的物体是焊死在世界上的，不会动。<br>
+    XML 报解析错 → 多半是粘贴时尖括号被转义了，对照检查。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">顺手理解三个概念（P1 要用）</span>
+  <p><strong>timestep</strong>：每次 <code>mj_step</code> 推进多少仿真时间。调小更准但更慢。<br>
+  <strong>接触</strong>：盒子落地后停住，是接触求解器在算法向力。把 <code>size</code> 改小、把初始高度改高，观察落地瞬间的行为变化。<br>
+  <strong>求解器</strong>：<code>model.opt</code> 里还有迭代次数等参数，决定接触算得多精细。<br>
+  改一个参数、跑、看数字怎么变 —— 这比读十页文档管用。</p>
+</div>
+
+<h3>4.3 交互式窗口：一个必须知道的坑</h3>
+
+<p>MuJoCo 有个能用鼠标拖动视角的实时窗口。<strong>在 macOS 上它不能用普通的 <code>python</code> 启动</strong>，必须用随包安装的 <code>mjpython</code>。</p>
+
+<p>原因：macOS 要求图形渲染必须在主线程上跑，<code>mjpython</code> 就是为满足这个约束而存在的启动器。<span class="verified">已验证</span>（MuJoCo 官方文档）</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cat > watch.py &lt;&lt;'EOF'
+import time, mujoco, mujoco.viewer
+
+XML = open("scene.xml").read() if False else """
+&lt;mujoco&gt;
+  &lt;worldbody&gt;
+    &lt;light pos="0 0 3"/&gt;
+    &lt;geom type="plane" size="2 2 .1"/&gt;
+    &lt;body pos="0 0 1"&gt;
+      &lt;freejoint/&gt;
+      &lt;geom type="box" size=".1 .1 .1" rgba="1 .4 .2 1"/&gt;
+    &lt;/body&gt;
+  &lt;/worldbody&gt;
+&lt;/mujoco&gt;
+"""
+
+model = mujoco.MjModel.from_xml_string(XML)
+data  = mujoco.MjData(model)
+
+with mujoco.viewer.launch_passive(model, data) as viewer:
+    while viewer.is_running():
+        mujoco.mj_step(model, data)
+        viewer.sync()
+        time.sleep(0.002)
+EOF
+
+<span class="c"># 注意：是 mjpython，不是 python</span>
+<span class="p">$</span> mjpython watch.py</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>弹出一个窗口，盒子掉在地上。鼠标左键拖动是旋转视角，滚轮缩放。关窗口即退出。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><strong>用 <code>python watch.py</code> 跑 → 必然失败</strong>，报错会提到必须用 <code>mjpython</code>。这是设计如此，不是你装错了。</p>
+    <p><strong><code>mjpython</code> 报找不到 <code>libpython3.12.dylib</code></strong> → 这是 <code>mjpython</code> 和 uv 自带 Python 的已知冲突（MuJoCo issue #1923，至今未关）<span class="verified">已验证</span>。这正是 4.1 让你用 <code>--python /opt/homebrew/bin/python3.12</code> 建环境的原因。如果你当时用的是 <code>uv venv --python 3.12</code>，删掉 <code>.venv</code> 重建：</p>
+<pre><span class="p">$</span> deactivate; rm -rf .venv
+<span class="p">$</span> uv venv --python /opt/homebrew/bin/python3.12
+<span class="p">$</span> source .venv/bin/activate && uv pip install mujoco</pre>
+    <p><strong>还是打不开也没关系 —— 这一关照样算过。</strong>4.2 的数字已经达标，交互窗口是锦上添花。把现象记进踩坑日志，往下走。<strong>不要在这里烧掉一晚上。</strong></p>
+  </div>
+</div>
+
+<h3>4.4 为第 6 章准备：拉机械臂模型库</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code
+<span class="p">$</span> git clone https://github.com/google-deepmind/mujoco_menagerie.git</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>clone 会有点大（几百 MB，含网格模型），等几分钟。完成后 <code>ls mujoco_menagerie</code> 能看到一堆机器人目录：<code>franka_emika_panda</code>、<code>universal_robots_ur5e</code>、<code>trs_so_arm100</code> 等等。第 6 章会用其中一个。</p>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════ 第 5 章 ══════════════════ -->
+<section class="chapter">
+<h2>05 · 仓库三：LeRobot</h2>
+
+<p><strong>时间盒 4 小时。这一关考的是「研究仓库全套」</strong>：大依赖树、版本互锁、数据集下载。前两个仓库是热身，这个才是本体 —— 也是最接近你以后每次读新论文官方代码时会遇到的那种复杂度。</p>
+
+<h3>5.1 两条必须先知道的约束</h3>
+
+<table>
+  <tr><th style="width:30%">约束</th><th>后果</th></tr>
+  <tr>
+    <td><strong>Python 必须 ≥ 3.12</strong><span class="verified">已验证</span></td>
+    <td>LeRobot 0.6 的 <code>requires_python</code> 写着 <code>&gt;=3.12</code>。用 3.11 建环境会直接装不上，而且报错信息不一定说人话。</td>
+  </tr>
+  <tr>
+    <td><strong>不要自己先装 torch</strong><span class="verified">已验证</span></td>
+    <td>LeRobot 锁 <code>torch&lt;2.12</code>，而 <code>pip install torch</code> 默认给你最新的 2.14。先装 torch 再装 lerobot，解析器要么报冲突、要么把你刚装的 torch 卸了重装 —— 白等半小时。<strong>让 lerobot 自己带 torch 下来。</strong></td>
+  </tr>
+</table>
+
+<h3>5.2 装上</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code && mkdir -p lerobot-play && cd lerobot-play
+<span class="p">$</span> uv venv --python 3.12
+<span class="p">$</span> source .venv/bin/activate
+<span class="p">$</span> uv pip install "lerobot[dataset]"</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>屏幕滚很久。<strong>这一步下几个 GB、花十几分钟是正常的</strong> —— torch 本身就有几百 MB。最后打印 <code>Installed N packages</code>，N 是三位数。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>报 <code>requires-python</code> 不满足 → 你的 venv 不是 3.12。<code>python --version</code> 确认，不对就 <code>deactivate; rm -rf .venv</code> 重建。<br>
+    卡在某个包下载不动 → 多半是网络。<code>Control + C</code> 中断后重跑，uv 会复用已下好的部分，不会从头来。<br>
+    报依赖冲突且提到 torch → 你这个环境里之前装过 torch。最省事的办法是删掉 <code>.venv</code> 从头来，不要试图手工调版本。</p>
+  </div>
+</div>
+
+<h3>5.3 出第一个数字</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> lerobot-info</pre>
+  <span class="verified">已验证</span>（LeRobot README 给出的入门命令）
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>一份环境报告：lerobot 版本、torch 版本、平台、以及有没有可用的加速设备。在 M4 上应该能看到 <strong>MPS 可用</strong>（Apple 的 GPU 接口），CUDA 不可用（正常，Mac 上没有 N 卡）。</p>
+    <p><strong>这就是这一关的「第一个数字」。</strong>它证明包装好了、能 import、能探测硬件。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><code>command not found: lerobot-info</code> → 环境没激活（看提示符），或者装的时候其实失败了（往上翻输出找红色的 error）。</p>
+  </div>
+</div>
+
+<h3>5.4 摸一下真实数据</h3>
+
+<p>接下来的命令名和参数<strong>可能随版本变化</strong>，所以这里先教你一个比任何具体命令都有用的习惯：</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> lerobot-train --help
+<span class="p">$</span> lerobot-eval --help</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>长长的参数列表。<strong>不要试图读完</strong>，找这几个就够：<code>--policy.type</code>（用哪个策略，比如 <code>act</code>、<code>diffusion</code>）、<code>--dataset.repo_id</code>（用哪个数据集）、<code>--steps</code> 或类似的训练步数、<code>--output_dir</code>。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>参数名和这里写的不一样 → <strong>以 <code>--help</code> 的输出为准，那是你这个版本的真相。</strong>顺手把差异记进踩坑日志，这正是「照着别人的文档跑，然后发现文档过时了」这项能力的练习。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">今天到这里就够了</span>
+  <p>不要在 M4 上启动完整训练。第 7 章会讲清楚为什么，以及怎么自己算出「本地要跑多久」这个数。<br>
+  <strong>P0 到此结束。</strong>三个仓库跑通、踩坑日志有内容，你就具备了「拿到一个陌生研究仓库、两小时内让它出第一个数字」的能力 —— 那正是第 8 周 L0.5 工程关要验的东西。</p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 6 章 ══════════════════ -->
+<section class="chapter">
+<h2>06 · P1：MuJoCo 机械臂 IK</h2>
+
+<p><strong>周期 2 周，全程本地免费，不需要 GPU。</strong>交付物：一个能跑的脚本，加一篇「仿真到底在算什么」的笔记。</p>
+
+<p>正运动学（知道关节角，求手在哪）很简单。<strong>逆运动学（知道手要去哪，求关节角）才是真问题</strong> —— 而且它是后面所有操作任务的地基：策略输出的动作，最终都要落到关节上。</p>
+
+<h3>6.1 加载一条真实的机械臂</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code/mujoco-play && source .venv/bin/activate
+<span class="p">$</span> cat > arm.py &lt;&lt;'EOF'
+import mujoco, numpy as np
+
+PATH = "../mujoco_menagerie/universal_robots_ur5e/scene.xml"
+model = mujoco.MjModel.from_xml_path(PATH)
+data  = mujoco.MjData(model)
+
+print("关节数 nq =", model.nq, " 执行器数 nu =", model.nu)
+for i in range(model.nbody):
+    print(i, mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_BODY, i))
+EOF
+
+<span class="p">$</span> python arm.py</pre>
+  <span class="unverified">未实测</span>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>UR5e 是 6 自由度，所以 <code>nq = 6</code> 左右；然后是一串 body 名字，最后几个通常是 <code>wrist_3_link</code>、<code>attachment_site</code> 之类。<strong>记下末端那个 body 的名字和序号，下一步要用。</strong></p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>文件找不到 → <code>ls ../mujoco_menagerie/</code> 看实际目录名，各机器人的文件夹名不完全统一，有的入口叫 <code>scene.xml</code> 有的叫 <code>ur5e.xml</code>。<br>
+    想换一条臂 → <code>franka_emika_panda</code>（7 自由度）也很好，甚至可以用 <code>trs_so_arm100</code>（和你 P3 要买的 SO-101 同系列，提前熟悉）。</p>
+  </div>
+</div>
+
+<h3>6.2 正运动学：给关节角，问手在哪</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cat > fk.py &lt;&lt;'EOF'
+import mujoco, numpy as np
+
+model = mujoco.MjModel.from_xml_path("../mujoco_menagerie/universal_robots_ur5e/scene.xml")
+data  = mujoco.MjData(model)
+
+EE = model.nbody - 1          # 先用最后一个 body 当末端，6.1 里看到名字后可以改成具体 id
+
+for q in [np.zeros(model.nq), np.full(model.nq, 0.3), np.full(model.nq, -0.5)]:
+    data.qpos[:] = q
+    mujoco.mj_forward(model, data)     # 只算运动学，不推进时间
+    print(np.round(q, 2), "->  末端位置", np.round(data.xpos[EE], 4))
+EOF
+
+<span class="p">$</span> python fk.py</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>三行，每行左边是关节角、右边是末端的 xyz 坐标。<strong>关节角一变，末端位置就跟着变</strong> —— 这就是正运动学。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">这里有个值得停下来想的点</span>
+  <p><code>mj_forward</code> 和第 4 章的 <code>mj_step</code> 不一样：<strong><code>mj_forward</code> 只根据当前状态算一遍位置/速度等派生量，不推进时间也不算力</strong>；<code>mj_step</code> 才是真的往前走一个 timestep。<br>
+  搞混这两个，是新手「为什么我的机器人不动」和「为什么它自己掉下去了」的常见来源。</p>
+</div>
+
+<h3>6.3 逆运动学：给目标点，求关节角</h3>
+
+<p>思路（这就是雅可比迭代法，本质上是牛顿法）：</p>
+
+<ol>
+  <li>算当前末端位置和目标的<strong>误差</strong></li>
+  <li>求<strong>雅可比矩阵</strong> —— 它回答「每个关节动一点点，末端会往哪个方向移动多少」</li>
+  <li>解一个线性方程，得到「关节该怎么动」</li>
+  <li>走一小步，回到第 1 步，直到误差足够小</li>
+</ol>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cat > ik.py &lt;&lt;'EOF'
+import mujoco, numpy as np
+
+model = mujoco.MjModel.from_xml_path("../mujoco_menagerie/universal_robots_ur5e/scene.xml")
+data  = mujoco.MjData(model)
+EE    = model.nbody - 1
+
+target = np.array([0.4, 0.2, 0.4])     # 想让末端去的地方
+jacp   = np.zeros((3, model.nv))       # 位置雅可比：3 行(xyz) × nv 列(每个自由度)
+jacr   = np.zeros((3, model.nv))       # 姿态雅可比，这里用不上但接口要求传
+damp   = 1e-3                          # 阻尼，防止奇异位形时解爆炸
+
+for step in range(200):
+    mujoco.mj_forward(model, data)
+    err = target - data.xpos[EE]
+    if np.linalg.norm(err) &lt; 1e-4:
+        print(f"第 {step} 步收敛")
+        break
+    mujoco.mj_jacBody(model, data, jacp, jacr, EE)
+    # 阻尼最小二乘：dq = J^T (J J^T + λI)^-1 err
+    JJt = jacp @ jacp.T + damp * np.eye(3)
+    dq  = jacp.T @ np.linalg.solve(JJt, err)
+    data.qpos[:model.nv] += 0.5 * dq   # 0.5 是步长，太大容易震荡
+
+mujoco.mj_forward(model, data)
+print("目标   ", np.round(target, 4))
+print("实际到达", np.round(data.xpos[EE], 4))
+print("残差   ", round(float(np.linalg.norm(target - data.xpos[EE])), 6))
+print("关节角 ", np.round(data.qpos[:model.nv], 3))
+EOF
+
+<span class="p">$</span> python ik.py</pre>
+  <span class="unverified">未实测</span>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>提示在某一步收敛，然后目标和实际到达的坐标几乎相同，残差是个很小的数（<code>1e-5</code> 量级）。</p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p><strong>不收敛 / 残差一直很大</strong> → 目标点可能在机械臂够不到的地方。把 <code>target</code> 改成 6.2 里正运动学算出来的某个真实位置（那一定可达），先验证算法本身对不对，再挑战难的点。<br>
+    <strong>数值爆炸成 nan</strong> → 步长 <code>0.5</code> 太大，或者 <code>damp</code> 太小。把步长降到 <code>0.1</code> 试试。<br>
+    <strong>形状不匹配报错</strong> → 注意 <code>model.nq</code>（位置维度）和 <code>model.nv</code>（速度/自由度维度）对于带自由关节的模型是不相等的。机械臂通常相等，但这个区别以后会咬你。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">这一步真正的功课</span>
+  <p>把上面的 <code>damp</code> 和步长各改三个值，记录收敛步数。然后回答：<strong>阻尼调大，收敛变快还是变慢？为什么它能防止「奇异位形」下解爆炸？</strong></p>
+  <p>能把这个讲清楚，你就理解了后面所有基于优化的控制方法的共同套路。这也正是「笔记」该写的内容 —— 不是抄定义，是写你改参数看到的现象。</p>
+</div>
+
+<h3>6.4 轨迹：让它连续动起来</h3>
+
+<p>把 IK 解出来的关节角当作目标，在起点和终点之间插值，逐步推进仿真，用第 4.3 的 viewer 看。交付物就是这个脚本加那篇笔记。</p>
+
+<p>笔记要回答 <code>PLAN.md</code> 里 P1 的那个问题 ——<strong>「仿真到底在算什么」</strong>：timestep 决定什么、接触力从哪来、求解器迭代次数影响什么、为什么仿真里成功的策略到真机上会失败。最后一问是 sim2real gap 的入口，也是你未来主战场的核心问题之一。</p>
+</section>
+
+<!-- ══════════════════ 第 7 章 ══════════════════ -->
+<section class="chapter">
+<h2>07 · P2：租 GPU 跑真训练</h2>
+
+<p><strong>周期 3 周。这一章分两半：本地做什么（不花钱），云上做什么（按小时计费）。</strong></p>
+
+<h3>7.1 先自己算出「本地要跑多久」</h3>
+
+<p>我不告诉你一个数字，因为我没在你机器上测过。<strong>你自己测，五分钟就有答案</strong> —— 而且这个估算动作本身就是研究者的日常功夫。</p>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="p">$</span> cd ~/code/lerobot-play && source .venv/bin/activate
+<span class="c"># 参数名以 lerobot-train --help 为准，下面是示意</span>
+<span class="p">$</span> time lerobot-train \
+    --policy.type=act \
+    --dataset.repo_id=lerobot/aloha_sim_transfer_cube_human \
+    --steps=100 \
+    --output_dir=/tmp/act-probe</pre>
+  <span class="unverified">未实测</span>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>先下数据集（几百 MB 到几 GB），然后跑 100 步，最后 <code>time</code> 打印出总耗时。</p>
+    <p><strong>然后做这道算术</strong>：ACT 原论文级别的训练通常在 10 万步量级。</p>
+<pre class="out">本地总耗时 ≈ (100 步用了几秒) ÷ 100 × 100000 ÷ 3600  小时</pre>
+    <p>如果 100 步用了 60 秒，那就是 <code>60/100 × 100000 / 3600 ≈ 16.7</code> 小时 —— 而且那是在你的 Mac 全程不干别的、不睡眠的前提下。<strong>这个数字会让「要不要租卡」这个决定变得非常容易。</strong></p>
+  </div>
+  <div class="fix">
+    <span class="lbl">③ 没看到怎么办</span>
+    <p>内存不够被系统杀掉（终端显示 <code>Killed</code> 或进程无声消失）→ 把 batch size 调到最小再测。16GB 统一内存要同时供 CPU 和 GPU，很容易触顶。<br>
+    报 MPS 相关的算子不支持 → 常见，LeRobot 的部分算子在 MPS 上没实现。加参数强制用 CPU 再测（更慢，但能测出数量级）。<strong>这本身就是「为什么要租卡」的一部分答案。</strong></p>
+  </div>
+</div>
+
+<h3>7.2 本地该做的三件事（不需要 GPU）</h3>
+
+<p>对应 <code>experiments/README.md</code> 里 P2 的「读 → 改 → 修」三级台阶。<strong>这三件事在 Mac 上做，比在租来的卡上做便宜得多，而且学到的更多。</strong></p>
+
+<table>
+  <tr><th style="width:12%">台阶</th><th style="width:30%">做什么</th><th>为什么</th></tr>
+  <tr>
+    <td><strong>读</strong></td>
+    <td>找到 ACT 的 <code>forward</code>，手画一张图：数据从 dataloader 出来后，每一步形状怎么变，一直到 loss。</td>
+    <td><strong>画完这一张，你才算真的看懂代码</strong>，而不是「看着眼熟」。这张图是 L1 复现关的验收物之一。</td>
+  </tr>
+  <tr>
+    <td><strong>改</strong></td>
+    <td>只改一个东西（chunk size / 相机数 / episode 数），跑 100 步，看 loss 曲线怎么变。一次只改一个。</td>
+    <td>一次改两个，你就永远不知道是哪个起的作用。这是实验设计的第一课。</td>
+  </tr>
+  <tr>
+    <td><strong>修</strong></td>
+    <td>故意把某个张量的形状改错，跑，读 traceback，自己修回来。<strong>做 3 次，每次换一种错法。</strong></td>
+    <td>建立「报错 → 定位」的反射。这个反射是 P3–P5 能不能推进的唯一门槛。</td>
+  </tr>
+</table>
+
+<h3>7.3 租哪家</h3>
+
+<table>
+  <tr><th style="width:20%">平台</th><th>适合谁</th></tr>
+  <tr><td><strong>AutoDL</strong></td><td>国内。支付、网络延迟、下载 HuggingFace 数据集都最省事，界面中文。<strong>在深圳的话从这家开始。</strong></td></tr>
+  <tr><td>RunPod</td><td>海外，卡型多，按秒计费。需要外币卡。</td></tr>
+  <tr><td>vast.ai</td><td>个人闲置算力市场，最便宜，但机器质量参差、可能被抢占。适合不怕折腾时。</td></tr>
+</table>
+
+<p><strong>卡怎么选</strong>：ACT / Diffusion Policy 这个量级，单张 24GB 显存的卡（3090 / 4090 一类）足够。<strong>不要一上来租 A100</strong> —— 贵，而且你这个阶段的瓶颈不在算力，在你还不熟悉流程。</p>
+
+<h3>7.4 三条命令就够了</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么</span>
+<pre><span class="c"># 1. 上机（端口和地址平台会给你）</span>
+<span class="p">$</span> ssh -p &lt;端口&gt; root@&lt;地址&gt;
+
+<span class="c"># 2. 开一个后台会话 —— 长任务必须在里面跑</span>
+<span class="p">$</span> tmux new -s train
+<span class="c">#    ctrl-b 然后按 d 退出（任务继续跑）；tmux a -t train 回来</span>
+
+<span class="c"># 3. 把本地代码同步上去（在你的 Mac 上跑这条，不是在服务器上）</span>
+<span class="p">$</span> rsync -avz -e "ssh -p &lt;端口&gt;" ./ root@&lt;地址&gt;:/root/work/</pre>
+  <div class="fix">
+    <span class="lbl">③ 最容易犯的错</span>
+    <p><strong>不开 tmux 直接跑训练。</strong>网一断、笔记本合盖、Wi-Fi 切换 —— ssh 断开，训练进程跟着死，8 小时白跑。<strong>这是租卡阶段最贵的一个错，几乎每个人都会犯一次。</strong>养成习惯：ssh 上去第一件事就是 <code>tmux new</code>。</p>
+  </div>
+</div>
+
+<div class="note">
+  <span class="lbl">三条纪律</span>
+  <p><strong>数据放机器上</strong>（每次重下太慢）· <strong>代码用 git 同步</strong>（rsync 只用于临时改动）· <strong>checkpoint 定期 rsync 回本地</strong>（实例一释放，盘上的东西就没了 —— 包括你跑了一整夜的结果）。</p>
+</div>
+
+<h3>7.5 跑起来，然后把结果带回来</h3>
+
+<div class="step">
+  <span class="step-n">① 敲什么（在服务器的 tmux 里）</span>
+<pre><span class="p">$</span> lerobot-train --policy.type=act \
+    --dataset.repo_id=&lt;数据集&gt; \
+    --output_dir=/root/work/outputs/act-run1
+
+<span class="c"># 另开一个窗口看显存占用</span>
+<span class="p">$</span> nvidia-smi</pre>
+  <div class="expect">
+    <span class="lbl">② 应该看到</span>
+    <p>loss 稳定下降；<code>nvidia-smi</code> 显示显存被占用、GPU 利用率不是 0。<strong>利用率长期是 0 说明瓶颈在数据加载不在算力</strong>，那就该调 dataloader 的进程数，而不是换更贵的卡。</p>
+  </div>
+</div>
+
+<div class="step">
+  <span class="step-n">① 敲什么（训练结束后，在你的 Mac 上）</span>
+<pre><span class="p">$</span> rsync -avz -e "ssh -p &lt;端口&gt;" \
+    root@&lt;地址&gt;:/root/work/outputs/ ./outputs/</pre>
+</div>
+
+<div class="note">
+  <span class="lbl">P2 的验收</span>
+  <p>公开数据集上复现的指标落在原文 ±10% 内；一份复现报告；ACT 与 Diffusion Policy 的失效模式对照表；还有 7.2 里那张形状变化图。<br>
+  <strong>指标对不上不是失败 —— 说不清为什么对不上才是。</strong>差在哪、你怀疑是什么、怎么验证，这三句写清楚，报告就有价值。</p>
+</div>
+</section>
+
+<!-- ══════════════════ 第 8 章 ══════════════════ -->
+<section class="chapter">
+<h2>08 · 卡住了怎么办</h2>
+
+<h3>8.1 60 秒规则的操作版</h3>
+
+<p>报错先自己读 60 秒再问 AI。这 60 秒具体怎么用：</p>
+
+<table>
+  <tr><th style="width:8%">秒</th><th style="width:26%">做什么</th><th>回答什么问题</th></tr>
+  <tr><td><strong>0–15</strong></td><td><strong>从最后一行往上读。</strong>最后一行是错误类型和信息。</td><td>什么坏了</td></tr>
+  <tr><td><strong>15–40</strong></td><td>往上找<strong>第一个属于你的文件路径</strong> —— 不在 <code>site-packages/</code> 里、也不在 <code>.venv/</code> 里的那一行。</td><td>哪儿坏了</td></tr>
+  <tr><td><strong>40–60</strong></td><td>对照下面的表，看是不是四类高频错之一。</td><td>要不要问人</td></tr>
+</table>
+
+<p>中间那一大堆库内部的栈帧，<strong>全部跳过</strong>。新手最容易犯的错是从第一行开始一行行读 —— 那些几乎都是别人的代码，和你无关。</p>
+
+<h3>8.2 高频报错对照表</h3>
+
+<table>
+  <tr><th style="width:36%">报错</th><th>真实原因与处理</th></tr>
+  <tr>
+    <td><code>ModuleNotFoundError</code><br>且模块名 = 仓库名</td>
+    <td>忘了 <code>uv pip install -e .</code>，或者<strong>环境没激活</strong>。先看提示符前面有没有 <code>(...)</code>。<strong>不要先怀疑 Python 版本。</strong></td>
+  </tr>
+  <tr>
+    <td><code>command not found</code><br>（<code>brew</code> / <code>lerobot-info</code> / <code>uv</code>）</td>
+    <td>PATH 问题或环境没激活。<code>brew</code> 找不到 → 第 2.2 节那两行 PATH 配置没做。命令行工具找不到 → 重开终端，或 <code>source .venv/bin/activate</code>。</td>
+  </tr>
+  <tr>
+    <td><code>RuntimeError: ... shapes cannot be multiplied</code></td>
+    <td>张量形状对不上。<strong>在报错那一行前面插 <code>print(x.shape)</code></strong>，往上追到第一个形状不对的地方。这是第 7.2 节「修」那一级要反复练的。</td>
+  </tr>
+  <tr>
+    <td>进程无声消失 / 显示 <code>Killed</code></td>
+    <td>内存被系统杀了。Mac 上是统一内存吃满。调小 batch size，或者关掉浏览器再试。</td>
+  </tr>
+  <tr>
+    <td><code>CUDA out of memory</code>（租的卡上）</td>
+    <td>batch 太大 / 推理时忘了 <code>torch.no_grad()</code> / 显存被别的进程占着。先 <code>nvidia-smi</code> 看一眼。</td>
+  </tr>
+  <tr>
+    <td>必须用 <code>mjpython</code></td>
+    <td>macOS 的 MuJoCo 交互式窗口限制，见 4.3。不是你装错了。</td>
+  </tr>
+  <tr>
+    <td>找不到 <code>libpython3.12.dylib</code></td>
+    <td><code>mjpython</code> 和 uv 自带 Python 的已知冲突。用 Homebrew 的 Python 重建环境，见 4.3。</td>
+  </tr>
+  <tr>
+    <td>下载卡住不动</td>
+    <td>网络。<code>Control + C</code> 中断重跑，uv 和 huggingface 都会复用已下载的部分，不会从头开始。</td>
+  </tr>
+</table>
+
+<h3>8.3 什么时候该停</h3>
+
+<div class="note">
+  <span class="lbl">时间盒到了就停，这是规则不是建议</span>
+  <p>每章都标了时间盒。<strong>到点没通，把当前状态写进踩坑日志，收工。</strong></p>
+  <p>不要做的两件事：<strong>硬扛到半夜</strong>（第二天状态差，损失远大于今天多跑通一个仓库）；<strong>为了跑通去抄一个别人的现成环境</strong>（那等于把这次训练作废 —— P0 练的就是自己把环境搞对的能力）。</p>
+  <p>记住 <code>experiments/P0-toolchain/README.md</code> 里那句：<strong>卡住的过程本身就是交付物。</strong>跑通了但日志是空的，那一天不算完成。</p>
+</div>
+
+<h3>8.4 问 AI 的正确姿势</h3>
+
+<table>
+  <tr><th style="width:50%">可以</th><th>不可以</th></tr>
+  <tr><td>贴报错让它解释「这句话什么意思」</td><td>让它直接给你一份能跑的环境配置，你不看就用</td></tr>
+  <tr><td>让它解释某段代码在干什么</td><td>让它替你读论文并给结论（前 6 个月）</td></tr>
+  <tr><td>让它出题考你、扮演审稿人反驳你</td><td>用它跳过 60 秒规则</td></tr>
+  <tr><td>让它写画图和数据处理的脚手架代码</td><td>让它改完你不看就 commit（违反逐行可复述）</td></tr>
+</table>
+
+<p>分界线：<strong>AI 可以替你打字，不能替你判断。</strong></p>
+</section>
+
+<!-- ══════════════════ 第 9 章 ══════════════════ -->
+<section class="chapter">
+<h2>09 · 命令速查卡</h2>
+
+<p>这一页可以单独打印贴在显示器旁边。</p>
+
+<h3>终端</h3>
+<pre><span class="p">$</span> pwd                      <span class="c"># 我在哪</span>
+<span class="p">$</span> ls -la                   <span class="c"># 这里有什么（含隐藏文件）</span>
+<span class="p">$</span> cd ~/code/ai-study-lab   <span class="c"># 去某处（Tab 键补全！）</span>
+<span class="c">  Control + C                强行中止</span></pre>
+
+<h3>环境（每个项目一间房）</h3>
+<pre><span class="p">$</span> uv venv --python 3.12              <span class="c"># 建房间</span>
+<span class="p">$</span> uv venv --python /opt/homebrew/bin/python3.12   <span class="c"># MuJoCo 用这个</span>
+<span class="p">$</span> source .venv/bin/activate          <span class="c"># 进房间（看提示符前的括号！）</span>
+<span class="p">$</span> uv pip install -e .                <span class="c"># 装当前仓库</span>
+<span class="p">$</span> uv pip install "lerobot[dataset]"  <span class="c"># 装带可选组的包</span>
+<span class="p">$</span> deactivate                         <span class="c"># 出房间</span>
+<span class="p">$</span> rm -rf .venv                       <span class="c"># 搞砸了就删掉重建，不要手工修</span></pre>
+
+<h3>三个仓库的第一个数字</h3>
+<pre><span class="p">$</span> python smoke.py       <span class="c"># micrograd：三个梯度数字</span>
+<span class="p">$</span> python drop.py        <span class="c"># MuJoCo：盒子落下，z 变小</span>
+<span class="p">$</span> lerobot-info          <span class="c"># LeRobot：环境报告，MPS 可用</span>
+<span class="p">$</span> mjpython watch.py     <span class="c"># MuJoCo 交互窗口（注意不是 python）</span></pre>
+
+<h3>租卡</h3>
+<pre><span class="p">$</span> ssh -p &lt;端口&gt; root@&lt;地址&gt;
+<span class="p">$</span> tmux new -s train     <span class="c"># 上去第一件事！ctrl-b d 退出，tmux a -t train 回来</span>
+<span class="p">$</span> nvidia-smi            <span class="c"># 看显存和利用率</span>
+<span class="p">$</span> rsync -avz -e "ssh -p &lt;端口&gt;" ./ root@&lt;地址&gt;:/root/work/   <span class="c"># 推代码</span>
+<span class="p">$</span> rsync -avz -e "ssh -p &lt;端口&gt;" root@&lt;地址&gt;:/root/work/outputs/ ./outputs/  <span class="c"># 拉结果</span></pre>
+
+<h3>卡住时的顺序</h3>
+<pre>1. 最后一行说什么？          <span class="c"># 什么坏了</span>
+2. 第一个属于我的文件在哪？   <span class="c"># 哪儿坏了（跳过 site-packages）</span>
+3. 提示符前面有括号吗？       <span class="c"># 环境激活了吗 —— 一半的问题在这</span>
+4. pwd 对吗？                <span class="c"># 我在正确的目录吗</span>
+5. 满 60 秒了再问 AI</pre>
+
+<h3>每天收工前</h3>
+<pre><span class="p">$</span> cd ~/code/ai-study-lab
+<span class="c"># 写今天的笔记（我原以为… 现在知道… 还不懂…）</span>
+<span class="p">$</span> open notes/            <span class="c"># 或用任何编辑器</span>
+<span class="c"># 踩坑记进 experiments/P0-toolchain/踩坑日志.md</span>
+<span class="p">$</span> git add -A && git commit -m "notes: ..." && git push</pre>
+
+<div class="note">
+  <span class="lbl">如果只记住三句话</span>
+  <p><strong>1. 提示符前面没有括号，就是环境没激活</strong> —— 这一条能解释你一半的报错。</p>
+  <p><strong>2. 时间盒到了就停，把卡住的过程记下来</strong> —— 那是交付物，不是失败。</p>
+  <p><strong>3. 报错先自己读 60 秒</strong> —— 这 60 秒练的是别人替你练不了的肌肉。</p>
+</div>
+</section>
+
+</body>
+</html>
